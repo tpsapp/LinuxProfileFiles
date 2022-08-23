@@ -1,0 +1,8 @@
+[user]
+	name = Thomas Sapp
+	email = tpsapp@hotmail.com
+[color]
+	status = auto
+	branch = auto
+	interactive = auto
+	diff = auto
