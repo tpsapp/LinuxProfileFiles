@@ -32,9 +32,12 @@ alias sfind='sudo find / -name'
 
 # Arch specific aliases
 
-alias inst='sudo pacman --needed -S'
-# alias inst='yay --needed -S'
+# alias inst='sudo pacman --needed -S'
+# alias uinst='sudo pacman -R'
 # alias search='pacman -Ss'
+# alias update='sudo pacman -Syu'
+alias inst='yay --needed -S'
+alias uinst='yay -R'
 alias search='yay -Ss'
 alias update='yay -Syu'
 
