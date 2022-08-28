@@ -20,7 +20,7 @@ cp src/.config/conky/conky.conf ~/.config/conky/
 
 # script files
 mkdir -p ~/.local/bin
-cp src/.local/bin/new-website.sh ~/.local/bin/
+cp src/.local/bin/* ~/.local/bin/
 
 # bg images
 mkdir -p ~/Pictures
@@ -34,4 +34,3 @@ cp src/.Xresources ~/
 
 # dircolor files
 cp src/.dir_colors ~/
-

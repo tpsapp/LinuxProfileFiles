@@ -22,6 +22,7 @@ cp ~/.config/conky/conky.conf src/.config/conky/
 
 # script files
 cp ~/.local/bin/new-website.sh src/.local/bin/
+cp ~/.local/bin/mount-nas.sh src/.local/bin/
 
 # bg images
 cp ~/Pictures/bg.jpg src/Pictures/
@@ -31,4 +32,3 @@ cp ~/.vimrc src/
 
 # X11 files
 cp ~/.Xresources src/
-
