@@ -21,6 +21,8 @@ if [ -f ~/.bash_functions ]; then
     . ~/.bash_functions
 fi
 
+source <(op completion bash)
+
 FG_BLACK='\e[0;30m'
 FG_BLUE='\e[0;34m'
 FG_GREEN='\e[0;32m'
