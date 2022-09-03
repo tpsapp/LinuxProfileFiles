@@ -23,23 +23,36 @@ alias snano='sudo nano'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias sfind='sudo find / -name'
 
-# Ubuntu specific aliases
+if [ -f /usr/bin/yay ]; then
+    alias inst='yay --needed -S'
+    alias uinst='yay -R'
+    alias search='yay -Ss'
+    alias update='yay -Syu'
+elif [ -f /usr/bin/pacman ]; then
+    alias inst='sudo pacman --needed -S'
+    alias uinst='sudo pacman -R'
+    alias search='pacman -Ss'
+    alias update='sudo pacman -Syu'
+elif [ -f /usr/bin/apt ]; then
+    if [ -f /usr/bin/nala ]; then
+        alias apt='nala'
+    fi
+    alias inst='sudo apt install'
+    alias uinst='sudo apt remove'
+    alias search='apt search'
+    alias update='sudo apt update && sudo apt upgrade'
+elif [ -f /usr/bin/dnf ]; then
+    alias inst='sudo dnf install'
+    alias uinst='sudo dnf remove'
+    alias search='dnf search'
+    alias update='sudo dnf upgrade'
+elif [ -f /usr/bin/yum ]; then
+    alias inst='sudo yum install'
+    alias uinst='sudo yum remove'
+    alias search='yum search'
+    alias update='sudo yum upgrade'
+fi
 
-# alias apt='nala'
-# alias inst='sudo apt install'
-# alias search='apt search'
-# alias update='sudo apt update && sudo apt upgrade'
-
-# Arch specific aliases
-
-# alias inst='sudo pacman --needed -S'
-# alias uinst='sudo pacman -R'
-# alias search='pacman -Ss'
-# alias update='sudo pacman -Syu'
-alias inst='yay --needed -S'
-alias uinst='yay -R'
-alias search='yay -Ss'
-alias update='yay -Syu'
-
-# GNOME specific aliases
-alias gnome-terminal='gnome-terminal --window --maximize'
+if [ -f /usr/bin/gnome-terminal ]
+    alias gnome-terminal='gnome-terminal --window --maximize'
+fi
