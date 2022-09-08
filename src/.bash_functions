@@ -24,15 +24,15 @@ netinfo ()
     echo "--------------- Network Information ---------------"
     echo "Wi-Fi:"
     echo -n "IPv4: "
-    /sbin/ifconfig wlan0 | awk /'inet / {print $2}'
+    /sbin/ifconfig wlp0s20f3 | awk /'inet / {print $2}'
     echo -n "IPv6: "
-    /sbin/ifconfig wlan0 | awk /'inet6 / {print $2}'
+    /sbin/ifconfig wlp0s20f3 | awk /'inet6 / {print $2}'
     echo -n "Broadcast: "
-    /sbin/ifconfig wlan0 | awk /'broadcast/ {print $2}'
+    /sbin/ifconfig wlp0s20f3 | awk /'broadcast/ {print $2}'
     echo -n "Netmask: "
-    /sbin/ifconfig wlan0 | awk /'inet / {print $4}'
+    /sbin/ifconfig wlp0s20f3 | awk /'inet / {print $4}'
     echo -n "MAC: "
-    /sbin/ifconfig wlan0 | awk /'ether/ {print $2}'
+    /sbin/ifconfig wlp0s20f3 | awk /'ether/ {print $2}'
     echo ""
     echo "Ethernet:"
     echo -n "IPv4: "
@@ -49,4 +49,23 @@ netinfo ()
     myip=`lynx -dump -hiddenlinks=ignore -nolist http://checkip.dyndns.org:8245/ | sed '/^$/d; s/^[ ]*//g; s/[ ]*$//g' `
     echo "${myip}"
     echo "---------------------------------------------------"
+}
+
+mount-nas () {
+    echo Mounting SAPPNAS...
+    mkdir -p ~/SAPPNAS
+    if [ $# == 0 ]; then
+        echo "No user or password provided for NAS, using admin as user.  Please enter the password below..."
+        sudo mount //192.168.0.134/backup ~/SAPPNAS -o user=admin,gid=$USER,uid=$USER
+    elif [ $# == 1 ]; then
+        echo "No password provided for NAS user $1, please enter it below..."
+        sudo mount //192.168.0.134/backup ~/SAPPNAS -o user=$1,gid=$USER,uid=$USER
+    else
+        sudo mount //192.168.0.134/backup ~/SAPPNAS -o user=$1,gid=$USER,uid=$USER,pass=$2
+    fi
+}
+
+umount-nas () {
+    echo Unmounting nas...
+    sudo umount -R ~/SAPPNAS
 }

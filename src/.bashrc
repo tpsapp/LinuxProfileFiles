@@ -21,7 +21,7 @@ if [ -f ~/.bash_functions ]; then
     . ~/.bash_functions
 fi
 
-if [ -f ~/.local/bin/op ]
+if [ -f ~/.local/bin/op ]; then
     source <(op completion bash)
 fi
 
@@ -74,7 +74,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1="\[$FG_BLUE\][\[$FG_YELLOW\] \u@\h \[$FG_BLUE\]] \[$FG_YELLOW\]\w\$\[$RESET_COLOR\] "
+    PS1="\[$FG_BLUE\][\[$FG_YELLOW\] \u\[$FG_BLUE\]@\[$FG_YELLOW\]\h \[$FG_BLUE\]] \[$FG_YELLOW\]\w\$\[$RESET_COLOR\] "
 else
     PS1='[ \u@\h ] \w\$ '
 fi
@@ -84,3 +84,4 @@ unset color_prompt force_color_prompt
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export EDITOR=nano
 export LS_COLORS=$LS_COLORS:"*.wmv=01;35":"*.wma=01;35":"*.flv=01;35":"*.m4a=01;35"
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock

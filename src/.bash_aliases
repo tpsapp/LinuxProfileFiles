@@ -53,6 +53,6 @@ elif [ -f /usr/bin/yum ]; then
     alias update='sudo yum upgrade'
 fi
 
-if [ -f /usr/bin/gnome-terminal ]
+if [ -f /usr/bin/gnome-terminal ]; then
     alias gnome-terminal='gnome-terminal --window --maximize'
 fi
