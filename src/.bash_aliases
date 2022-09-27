@@ -33,10 +33,12 @@ elif [ -f /usr/bin/pacman ]; then
     alias uinst='sudo pacman -R'
     alias search='pacman -Ss'
     alias update='sudo pacman -Syu'
+elif [ -f /usr/bin/nala ]; then
+    alias inst='sudo nala install'
+    alias uinst='sudo nala remove'
+    alias search='nala search'
+    alias update='sudo nala update && sudo nala upgrade'
 elif [ -f /usr/bin/apt ]; then
-    if [ -f /usr/bin/nala ]; then
-        alias apt='nala'
-    fi
     alias inst='sudo apt install'
     alias uinst='sudo apt remove'
     alias search='apt search'
@@ -51,6 +53,11 @@ elif [ -f /usr/bin/yum ]; then
     alias uinst='sudo yum remove'
     alias search='yum search'
     alias update='sudo yum upgrade'
+fi
+
+if [ -f /usr/bin/pacseek ]; then
+    alias search='pacseek -s'
+    alias update='pacseek -u'
 fi
 
 if [ -f /usr/bin/gnome-terminal ]; then
