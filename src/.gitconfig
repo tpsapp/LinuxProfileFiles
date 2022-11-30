@@ -6,3 +6,5 @@
 	branch = auto
 	interactive = auto
 	diff = auto
+[init]
+	defaultBranch = main
