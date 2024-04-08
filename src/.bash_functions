@@ -19,37 +19,38 @@ extract () {
      fi
 }
 
-netinfo ()
-{
-    echo "--------------- Network Information ---------------"
-    echo "Wi-Fi:"
-    echo -n "IPv4: "
-    /sbin/ifconfig wlp0s20f3 | awk /'inet / {print $2}'
-    echo -n "IPv6: "
-    /sbin/ifconfig wlp0s20f3 | awk /'inet6 / {print $2}'
-    echo -n "Broadcast: "
-    /sbin/ifconfig wlp0s20f3 | awk /'broadcast/ {print $2}'
-    echo -n "Netmask: "
-    /sbin/ifconfig wlp0s20f3 | awk /'inet / {print $4}'
-    echo -n "MAC: "
-    /sbin/ifconfig wlp0s20f3 | awk /'ether/ {print $2}'
-    echo ""
-    echo "Ethernet:"
-    echo -n "IPv4: "
-    /sbin/ifconfig eno0 | awk /'inet / {print $2}'
-    echo -n "IPv6: "
-    /sbin/ifconfig eno0 | awk /'inet6 / {print $2}'
-    echo -n "Broadcast: "
-    /sbin/ifconfig eno0 | awk /'broadcast/ {print $2}'
-    echo -n "Netmask: "
-    /sbin/ifconfig eno0 | awk /'inet / {print $4}'
-    echo -n "MAC: "
-    /sbin/ifconfig eno0 | awk /'ether/ {print $2}'
-    echo ""
-    myip=`lynx -dump -hiddenlinks=ignore -nolist http://checkip.dyndns.org:8245/ | sed '/^$/d; s/^[ ]*//g; s/[ ]*$//g' `
-    echo "${myip}"
-    echo "---------------------------------------------------"
-}
+# Needs to be reworked since ifconfig is deprecated
+# netinfo ()
+# {
+#     echo "--------------- Network Information ---------------"
+#     echo "Wi-Fi:"
+#     echo -n "IPv4: "
+#     /sbin/ifconfig wlp0s20f3 | awk /'inet / {print $2}'
+#     echo -n "IPv6: "
+#     /sbin/ifconfig wlp0s20f3 | awk /'inet6 / {print $2}'
+#     echo -n "Broadcast: "
+#     /sbin/ifconfig wlp0s20f3 | awk /'broadcast/ {print $2}'
+#     echo -n "Netmask: "
+#     /sbin/ifconfig wlp0s20f3 | awk /'inet / {print $4}'
+#     echo -n "MAC: "
+#     /sbin/ifconfig wlp0s20f3 | awk /'ether/ {print $2}'
+#     echo ""
+#     echo "Ethernet:"
+#     echo -n "IPv4: "
+#     /sbin/ifconfig eno0 | awk /'inet / {print $2}'
+#     echo -n "IPv6: "
+#     /sbin/ifconfig eno0 | awk /'inet6 / {print $2}'
+#     echo -n "Broadcast: "
+#     /sbin/ifconfig eno0 | awk /'broadcast/ {print $2}'
+#     echo -n "Netmask: "
+#     /sbin/ifconfig eno0 | awk /'inet / {print $4}'
+#     echo -n "MAC: "
+#     /sbin/ifconfig eno0 | awk /'ether/ {print $2}'
+#     echo ""
+#     myip=`lynx -dump -hiddenlinks=ignore -nolist http://checkip.dyndns.org:8245/ | sed '/^$/d; s/^[ ]*//g; s/[ ]*$//g' `
+#     echo "${myip}"
+#     echo "---------------------------------------------------"
+# }
 
 mount-nas () {
     echo Mounting SAPPNAS...

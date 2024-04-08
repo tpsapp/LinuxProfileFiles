@@ -82,6 +82,6 @@ fi
 unset color_prompt force_color_prompt
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-export EDITOR=nano
+export EDITOR=vim
 export LS_COLORS=$LS_COLORS:"*.wmv=01;35":"*.wma=01;35":"*.flv=01;35":"*.m4a=01;35"
-export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+#export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
