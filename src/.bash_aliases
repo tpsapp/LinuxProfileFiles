@@ -15,6 +15,8 @@ alias l='ls -CF'
 alias cls='clear'
 alias dir='ls'
 
+alias ip='ip -color'
+
 alias sudp='sudo'
 
 alias svim='sudo vim'
@@ -59,6 +61,8 @@ if [ -f /usr/bin/pacseek ]; then
     alias search='pacseek -s'
     alias update='pacseek -u'
 fi
+
+alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'
 
 if [ -f /usr/bin/gnome-terminal ]; then
     alias gnome-terminal='gnome-terminal --window --maximize'

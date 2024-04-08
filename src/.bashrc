@@ -1,7 +1,7 @@
 # Thomas Sapp's .bashrc
 
 case $- in
-    *i*) ;;
+    *i*) if [ -f /usr/share/blesh/ble.sh ]; then source /usr/share/blesh/ble.sh; fi;;
       *) return;;
 esac
 
@@ -23,6 +23,14 @@ fi
 
 if [ -f ~/.local/bin/op ]; then
     source <(op completion bash)
+fi
+
+if [ -f /usr/bin/starship ]; then
+    eval "$(starship init bash)"
+fi
+
+if [ -f /usr/share/doc/find-the-command/ftc.bash ]; then
+    source /usr/share/doc/find-the-command/ftc.bash
 fi
 
 FG_BLACK='\e[0;30m'
