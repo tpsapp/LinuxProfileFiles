@@ -17,14 +17,11 @@ cp ~/.gitconfig src/
 # nano files
 cp ~/.nanorc src/
 
-# conky files
-cp ~/.config/conky/conky.conf src/.config/conky/
-
 # script files
 cp ~/.local/bin/*.sh src/.local/bin/
 
 # bg images
-cp ~/Pictures/bg.jpg src/Pictures/
+cp ~/Pictures/Wallpapers/*.* src/Pictures/Wallpapers/
 
 # vim files
 cp ~/.vimrc src/

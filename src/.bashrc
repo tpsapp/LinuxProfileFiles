@@ -30,7 +30,7 @@ if [ -f /usr/bin/starship ]; then
 fi
 
 if [ -f /usr/share/doc/find-the-command/ftc.bash ]; then
-    source /usr/share/doc/find-the-command/ftc.bash
+    source /usr/share/doc/find-the-command/ftc.bash noprompt
 fi
 
 FG_BLACK='\e[0;30m'
