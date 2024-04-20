@@ -5,6 +5,24 @@ case $- in
       *) return;;
 esac
 
+FG_BLACK='\e[0;30m'
+FG_BLUE='\e[0;34m'
+FG_GREEN='\e[0;32m'
+FG_CYAN='\e[0;36m'
+FG_RED='\e[0;31m'
+FG_PURPLE='\e[0;35m'
+FG_BROWN='\e[0;33m'
+FG_LIGHTGRAY='\e[0;37m'
+FG_DARKGRAY='\e[1;30m'
+FG_LIGHTBLUE='\e[1;34m'
+FG_LIGHTGREEN='\e[1;32m'
+FG_LIGHTCYAN='\e[1;36m'
+FG_LIGHTRED='\e[1;31m'
+FG_LIGHTPURPLE='\e[1;35m'
+FG_YELLOW='\e[1;33m'
+FG_WHITE='\e[1;37m'
+RESET_COLOR='\e[0m'
+
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
@@ -25,32 +43,9 @@ if [ -f ~/.local/bin/op ]; then
     source <(op completion bash)
 fi
 
-if [ -f /usr/bin/starship ]; then
-    eval "$(starship init bash)"
-fi
-
 if [ -f /usr/share/doc/find-the-command/ftc.bash ]; then
     source /usr/share/doc/find-the-command/ftc.bash noprompt
 fi
-
-FG_BLACK='\e[0;30m'
-FG_BLUE='\e[0;34m'
-FG_GREEN='\e[0;32m'
-FG_CYAN='\e[0;36m'
-FG_RED='\e[0;31m'
-FG_PURPLE='\e[0;35m'
-FG_BROWN='\e[0;33m'
-FG_LIGHTGRAY='\e[0;37m'
-FG_DARKGRAY='\e[1;30m'
-FG_LIGHTBLUE='\e[1;34m'
-FG_LIGHTGREEN='\e[1;32m'
-FG_LIGHTCYAN='\e[1;36m'
-FG_LIGHTRED='\e[1;31m'
-FG_LIGHTPURPLE='\e[1;35m'
-FG_YELLOW='\e[1;33m'
-FG_WHITE='\e[1;37m'
-RESET_COLOR='\e[0m'
-
 
 shopt -s histappend
 shopt -s checkwinsize
@@ -71,13 +66,14 @@ HISTIGNORE="&:??:[ ]*:clear:exit:logout"
 
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+
 force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	    color_prompt=yes
+        color_prompt=yes
     else
-	    color_prompt=
+        color_prompt=
     fi
 fi
 
@@ -92,4 +88,8 @@ unset color_prompt force_color_prompt
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export EDITOR=vim
 export LS_COLORS=$LS_COLORS:"*.wmv=01;35":"*.wma=01;35":"*.flv=01;35":"*.m4a=01;35"
-#export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+
+if [ -f /usr/bin/starship ]; then
+    eval "$(starship init bash)"
+fi

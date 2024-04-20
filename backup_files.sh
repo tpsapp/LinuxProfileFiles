@@ -28,3 +28,12 @@ cp ~/.vimrc src/
 
 # X11 files
 cp ~/.Xresources src/
+
+# Dolphin files
+cp ~/.config/dolphinrc src/.config/
+
+# Kate files
+cp ~/.config/katerc src/.config/
+
+# Starship files
+cp ~/.config/starship.toml src/.config

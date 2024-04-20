@@ -8,6 +8,9 @@ cp src/.bash_logout ~/
 cp src/.bash_profile ~/
 cp src/.profile ~/
 
+# dircolor files
+cp src/.dir_colors ~/
+
 # git files
 cp src/.gitconfig ~/
 
@@ -28,5 +31,11 @@ cp src/.vimrc ~/
 # X11 files
 cp src/.Xresources ~/
 
-# dircolor files
-cp src/.dir_colors ~/
+# Dolphin files
+cp src/.config/dolphinrc ~/.config/
+
+# Kate files
+cp src/.config/katerc ~/.config/
+
+# Starship files
+cp src/.config/starship.toml ~/.config
