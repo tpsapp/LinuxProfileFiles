@@ -87,6 +87,7 @@ Line Height Multiplier=1
 Show Indentation Lines=true
 Show Whole Bracket Expression=true
 Text Font=FiraCode Nerd Font,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+Text Font Features=
 Word Wrap Marker=false
 
 [KTextEditor View]
@@ -161,9 +162,41 @@ SetEditor=false
 [MainWindow]
 2 screens: Window-Maximized=true
 
+[Printing][HeaderFooter]
+FooterBackground=211,211,211
+FooterBackgroundEnabled=false
+FooterEnabled=true
+FooterForeground=0,0,0
+FooterFormatCenter=
+FooterFormatLeft=
+FooterFormatRight=%U
+HeaderBackground=211,211,211
+HeaderBackgroundEnabled=false
+HeaderEnabled=true
+HeaderFooterFont=FiraCode Nerd Font,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+HeaderForeground=0,0,0
+HeaderFormatCenter=%f
+HeaderFormatLeft=%y
+HeaderFormatRight=%p
+
+[Printing][Layout]
+BackgroundColorEnabled=false
+BoxColor=invalid
+BoxEnabled=false
+BoxMargin=6
+BoxWidth=1
+ColorScheme=Printing
+Font=FiraCode Nerd Font,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+
+[Printing][Text]
+DontPrintFoldedCode=true
+Legend=false
+LineNumbers=false
+
 [filetree]
 editShade=183,220,246
 listMode=false
+middleClickToClose=false
 shadingEnabled=true
 showCloseButton=false
 showFullPathOnRoots=true

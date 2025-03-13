@@ -47,6 +47,10 @@ if [ -f /usr/share/doc/find-the-command/ftc.bash ]; then
     source /usr/share/doc/find-the-command/ftc.bash noprompt
 fi
 
+if [ -f /home/tpsapp/.local/share/emsdk/emsdk_env.sh ]; then
+    source "/home/tpsapp/.local/share/emsdk/emsdk_env.sh"
+fi
+
 shopt -s histappend
 shopt -s checkwinsize
 

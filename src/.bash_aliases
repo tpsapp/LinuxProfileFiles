@@ -17,6 +17,8 @@ alias dir='ls'
 
 alias ip='ip -color'
 
+alias hexedit='hexedit --color'
+
 alias sudp='sudo'
 
 alias svim='sudo vim'
@@ -29,12 +31,12 @@ if [ -f /usr/bin/yay ]; then
     alias inst='yay --needed -S'
     alias uinst='yay -R'
     alias search='yay -Ss'
-    alias update='yay -Syu'
+    alias update='yay --needed -Syu'
 elif [ -f /usr/bin/pacman ]; then
     alias inst='sudo pacman --needed -S'
     alias uinst='sudo pacman -R'
     alias search='pacman -Ss'
-    alias update='sudo pacman -Syu'
+    alias update='sudo pacman --needed -Syu'
 elif [ -f /usr/bin/nala ]; then
     alias inst='sudo nala install'
     alias uinst='sudo nala remove'
