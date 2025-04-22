@@ -32,39 +32,43 @@ if [ -f /usr/bin/yay ]; then
     alias uinst='yay -R'
     alias search='yay -Ss'
     alias update='yay --needed -Syu'
+    alias cleanup='yay -Rns $(yay -Qtdq)'
 elif [ -f /usr/bin/pacman ]; then
     alias inst='sudo pacman --needed -S'
     alias uinst='sudo pacman -R'
     alias search='pacman -Ss'
     alias update='sudo pacman --needed -Syu'
+    alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'
 elif [ -f /usr/bin/nala ]; then
     alias inst='sudo nala install'
     alias uinst='sudo nala remove'
     alias search='nala search'
     alias update='sudo nala update && sudo nala upgrade'
+    alias cleanup='sudo nala autoremove && sudo nala clean'
 elif [ -f /usr/bin/apt ]; then
     alias inst='sudo apt install'
     alias uinst='sudo apt remove'
     alias search='apt search'
     alias update='sudo apt update && sudo apt upgrade'
+    alias cleanup='sudo apt autoremove && sudo apt clean'
 elif [ -f /usr/bin/dnf ]; then
     alias inst='sudo dnf install'
     alias uinst='sudo dnf remove'
     alias search='dnf search'
     alias update='sudo dnf upgrade'
+    alias cleanup='sudo dnf clean all'
 elif [ -f /usr/bin/yum ]; then
     alias inst='sudo yum install'
     alias uinst='sudo yum remove'
     alias search='yum search'
     alias update='sudo yum upgrade'
+    alias cleanup='sudo yum clean all'
 fi
 
 if [ -f /usr/bin/pacseek ]; then
     alias search='pacseek -s'
     alias update='pacseek -u'
 fi
-
-alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'
 
 if [ -f /usr/bin/gnome-terminal ]; then
     alias gnome-terminal='gnome-terminal --window --maximize'
