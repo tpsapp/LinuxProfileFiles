@@ -39,7 +39,7 @@ cp ~/.local/bin/*.sh src/.local/bin/
 cp ~/Pictures/Wallpapers/*.* src/Pictures/Wallpapers/
 
 # avatar image
-cp ~/Pictures/Wallpapers/avatar.jpg src/Pictures/Wallpapers/
+cp ~/Pictures/avatar.jpg src/Pictures/
 
 # ssh files
 cp ~/.ssh/* src/.ssh/

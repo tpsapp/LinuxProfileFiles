@@ -49,7 +49,7 @@ fi
 cp src/Pictures/Wallpapers/*.* ~/Pictures/Wallpapers
 
 # avatar image
-cp src/Pictures/Wallpapers/avatar.jpg ~/Pictures/Wallpapers/
+cp src/Pictures/avatar.jpg ~/Pictures/
 
 # ssh files
 # check if ~/.ssh exists, if not create it
