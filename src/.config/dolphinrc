@@ -1,15 +1,21 @@
+[ContentDisplay]
+UseShortRelativeDates=false
+
 [ContextMenu]
 ShowCopyMoveMenu=true
 
 [General]
 EditableUrl=true
 FilterBar=true
+OpenExternallyCalledFolderInNewTab=true
+OpenNewTabAfterLastTab=true
 ShowFullPath=true
 ShowFullPathInTitlebar=true
 ShowToolTips=true
 SortingChoice=CaseInsensitiveSorting
-Version=202
-ViewPropsTimestamp=2024,4,19,14,8,23.191
+
+[InformationPanel]
+dateFormat=ShortFormat
 
 [KFileDialog Settings]
 Places Icons Auto-resize=false

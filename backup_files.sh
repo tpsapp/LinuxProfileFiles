@@ -17,12 +17,6 @@ cp ~/.gitconfig src/
 # nano files
 cp ~/.nanorc src/
 
-# script files
-cp ~/.local/bin/*.sh src/.local/bin/
-
-# bg images
-cp ~/Pictures/Wallpapers/*.* src/Pictures/Wallpapers/
-
 # vim files
 cp ~/.vimrc src/
 
@@ -37,3 +31,15 @@ cp ~/.config/katerc src/.config/
 
 # Starship files
 cp ~/.config/starship.toml src/.config
+
+# script files
+cp ~/.local/bin/*.sh src/.local/bin/
+
+# bg images
+cp ~/Pictures/Wallpapers/*.* src/Pictures/Wallpapers/
+
+# avatar image
+cp ~/Pictures/Wallpapers/avatar.jpg src/Pictures/Wallpapers/
+
+# ssh files
+cp ~/.ssh/* src/.ssh/

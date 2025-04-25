@@ -1,5 +1,10 @@
 # Thomas Sapp's .bashrc
 
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
 case $- in
     *i*) if [ -f /usr/share/blesh/ble.sh ]; then source /usr/share/blesh/ble.sh; fi;;
       *) return;;
@@ -30,6 +35,16 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
+
+# User specific aliases and functions
+if [ -d ~/.bashrc.d ]; then
+    for rc in ~/.bashrc.d/*; do
+        if [ -f "$rc" ]; then
+            . "$rc"
+        fi
+    done
+fi
+unset rc
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases

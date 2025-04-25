@@ -1,6 +1,7 @@
 [user]
 	name = Thomas Sapp
 	email = tpsapp@hotmail.com
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB/8lxvgyPpmbb3pSi5tCe1CBIKi3CW69l9wKAjr6cH4
 [color]
 	status = auto
 	branch = auto
@@ -13,3 +14,9 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[gpg]
+  format = ssh
+[gpg "ssh"]
+  program = "/opt/1Password/op-ssh-sign"
+[commit]
+  gpgsign = true

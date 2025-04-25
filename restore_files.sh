@@ -17,14 +17,6 @@ cp src/.gitconfig ~/
 # nano files
 cp src/.nanorc ~/
 
-# script files
-mkdir -p ~/.local/bin
-cp src/.local/bin/* ~/.local/bin/
-
-# bg images
-mkdir -p ~/Pictures/Wallpapers/
-cp src/Pictures/Wallpapers/*.* ~/Pictures/Wallpapers
-
 # vim files
 cp src/.vimrc ~/
 
@@ -39,3 +31,30 @@ cp src/.config/katerc ~/.config/
 
 # Starship files
 cp src/.config/starship.toml ~/.config
+
+# script files
+# check if ~/.local/bin exists, if not create it
+if ! [ -d ~/.local/bin ]; then
+    mkdir -p ~/.local/bin
+fi
+# copy all files from src/.local/bin to ~/.local/bin
+cp src/.local/bin/* ~/.local/bin/
+
+# bg images
+# check if ~/Pictures/Wallpapers exists, if not create it
+if ! [ -d ~/Pictures/Wallpapers ]; then
+    mkdir -p ~/Pictures/Wallpapers
+fi
+# copy all files from src/Pictures/Wallpapers to ~/Pictures/Wallpapers
+cp src/Pictures/Wallpapers/*.* ~/Pictures/Wallpapers
+
+# avatar image
+cp src/Pictures/Wallpapers/avatar.jpg ~/Pictures/Wallpapers/
+
+# ssh files
+# check if ~/.ssh exists, if not create it
+if ! [ -d ~/.ssh ]; then
+    mkdir -p ~/.ssh
+fi
+# copy all files from src/.ssh to ~/.ssh
+cp src/.ssh/* ~/.ssh/
