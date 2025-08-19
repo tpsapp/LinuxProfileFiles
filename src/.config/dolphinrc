@@ -1,3 +1,5 @@
+MenuBar=Disabled
+
 [ContentDisplay]
 UseShortRelativeDates=false
 
@@ -13,6 +15,8 @@ ShowFullPath=true
 ShowFullPathInTitlebar=true
 ShowToolTips=true
 SortingChoice=CaseInsensitiveSorting
+Version=202
+ViewPropsTimestamp=2025,8,19,7,55,29.427
 
 [InformationPanel]
 dateFormat=ShortFormat
@@ -23,7 +27,6 @@ Places Icons Static Size=22
 
 [MainWindow]
 MenuBar=Disabled
-ToolBarsMovable=Disabled
 
 [PreviewSettings]
 Plugins=appimagethumbnail,audiothumbnail,blenderthumbnail,comicbookthumbnail,cursorthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,directorythumbnail,fontthumbnail,pothumbnail,imagethumbnail,jpegthumbnail,kraorathumbnail,windowsexethumbnail,windowsimagethumbnail,mobithumbnail,opendocumentthumbnail,gsthumbnail,quithumbnail,rawthumbnail,svgthumbnail,textthumbnail

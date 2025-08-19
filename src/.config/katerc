@@ -160,6 +160,7 @@ RunPrefix=
 SetEditor=false
 
 [MainWindow]
+1920x1080 screen: Window-Maximized=true
 2 screens: Window-Maximized=true
 
 [Printing][HeaderFooter]
