@@ -5,6 +5,8 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
+system76-power profile performance
+
 case $- in
     *i*) if [ -f /usr/share/blesh/ble.sh ]; then source /usr/share/blesh/ble.sh; fi;;
       *) return;;
