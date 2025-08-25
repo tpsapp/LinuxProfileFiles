@@ -60,8 +60,8 @@ if [ -f ~/.local/bin/op ]; then
     source <(op completion bash)
 fi
 
-if [ -f /usr/share/doc/find-the-command/ftc.bash ]; then
-    source /usr/share/doc/find-the-command/ftc.bash noprompt
+if [ -f /usr/share/doc/pkgfile/command-not-found.bash ]; then
+    source /usr/share/doc/pkgfile/command-not-found.bash noprompt
 fi
 
 if [ -f /home/tpsapp/.local/share/emsdk/emsdk_env.sh ]; then

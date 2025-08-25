@@ -5,13 +5,19 @@
 # Update system
 sudo pacman -Syu --noconfirm
 
+# Install necessary tools
+sudo pacman -S vim git go pacman-contrib --noconfirm
+
 # Install yay from AUR
-sudo pacman -S vim git go --noconfirm
 git clone https://aur.archlinux.org/yay-git.git
 cd yay-git
 makepkg -si --noconfirm
 cd ..
 rm -rf yay-git
+
+# Rank 10 fastest pacman mirrors
+sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+sudo rankmirrors -n 10 /etc/pacman.d/mirrorlist.backup | sudo tee /etc/pacman.d/mirrorlist
 
 # Install base applications
 sudo pacman -S plasma-meta kde-graphics-meta kde-network-meta kde-utilities-meta kde-sdk-meta kde-system-meta thunderbird firewalld cups hplip networkmanager-openvpn openssh cups-filters cups-pdf systray-x-kde inetutils zip unzip p7zip unrar unarj exfatprogs ntfs-3g dosfstools packagekit-qt6 libreoffice-fresh plymouth intel-ucode pkgfile nerd-fonts starship bash-completion lesspipe nano plymouth-kcm adobe-source-code-pro-fonts github-cli nmap nikto hexchat steam system76-scheduler system76-firmware php gimp vlc system-config-printer google-chrome docker docker-compose docker-rootless-extras docker-tray visual-studio-code-bin blesh 1password 1password-cli github-desktop firmware-manager vim-plug system76-dkms system76-driver system76-power --noconfirm
