@@ -1,3 +1,20 @@
+helpmsg () {
+    echo -e "$FG_BLUE***********************************************************"
+    echo -e "$FG_BLUE*                                                         *"
+    echo -e "$FG_BLUE* $FG_GREEN Here are some helpful aliases$FG_BLUE                          *"
+    echo -e "$FG_BLUE*                                                         *"
+    echo -e "$FG_BLUE* $FG_GREEN svim = Start VIM with sudo$FG_BLUE                             *"
+    echo -e "$FG_BLUE* $FG_GREEN snano = Start Nano with sudo$FG_BLUE                           *"
+    echo -e "$FG_BLUE* $FG_GREEN sfind = Find files recursively in / using a filename$FG_BLUE   *"
+    echo -e "$FG_BLUE* $FG_GREEN inst = Install a program$FG_BLUE                               *"
+    echo -e "$FG_BLUE* $FG_GREEN uinst = Uninstall a program$FG_BLUE                            *"
+    echo -e "$FG_BLUE* $FG_GREEN search = Search for a program$FG_BLUE                          *"
+    echo -e "$FG_BLUE* $FG_GREEN update = Update the system$FG_BLUE                             *"
+    echo -e "$FG_BLUE* $FG_GREEN cleanup = Clean up the package cache$FG_BLUE                   *"
+    echo -e "$FG_BLUE*                                                         *"
+    echo -e "$FG_BLUE***********************************************************"
+}
+
 extract () {
      if [ -f $1 ] ; then
          case $1 in

@@ -5,12 +5,17 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
-system76-power profile performance
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
 
-case $- in
-    *i*) if [ -f /usr/share/blesh/ble.sh ]; then source /usr/share/blesh/ble.sh; fi;;
-      *) return;;
-esac
+if [ -f ~/.bash_functions ]; then
+    . ~/.bash_functions
+fi
+
+if [ -f /usr/bin/starship ]; then
+    eval "$(starship init bash)"
+fi
 
 FG_BLACK='\e[0;30m'
 FG_BLUE='\e[0;34m'
@@ -30,6 +35,15 @@ FG_YELLOW='\e[1;33m'
 FG_WHITE='\e[1;37m'
 RESET_COLOR='\e[0m'
 
+helpmsg
+
+# system76-power profile performance
+
+case $- in
+    *i*) if [ -f /usr/share/blesh/ble.sh ]; then source /usr/share/blesh/ble.sh; fi;;
+      *) return;;
+esac
+
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
@@ -47,14 +61,6 @@ if [ -d ~/.bashrc.d ]; then
     done
 fi
 unset rc
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-if [ -f ~/.bash_functions ]; then
-    . ~/.bash_functions
-fi
 
 if [ -f ~/.local/bin/op ]; then
     source <(op completion bash)
@@ -111,21 +117,5 @@ export EDITOR=vim
 export LS_COLORS=$LS_COLORS:"*.wmv=01;35":"*.wma=01;35":"*.flv=01;35":"*.m4a=01;35"
 export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 
-if [ -f /usr/bin/starship ]; then
-    eval "$(starship init bash)"
-fi
-
-echo -e "$FG_BLUE***********************************************************"
-echo -e "$FG_BLUE*                                                         *"
-echo -e "$FG_BLUE* $FG_GREEN Here are some helpful aliases$FG_BLUE                          *"
-echo -e "$FG_BLUE*                                                         *"
-echo -e "$FG_BLUE* $FG_GREEN svim = Start VIM with sudo$FG_BLUE                             *"
-echo -e "$FG_BLUE* $FG_GREEN snano = Start Nano with sudo$FG_BLUE                           *"
-echo -e "$FG_BLUE* $FG_GREEN sfind = Find files recursively in / using a filename$FG_BLUE   *"
-echo -e "$FG_BLUE* $FG_GREEN inst = Install a program$FG_BLUE                               *"
-echo -e "$FG_BLUE* $FG_GREEN uinst = Uninstall a program$FG_BLUE                            *"
-echo -e "$FG_BLUE* $FG_GREEN search = Search for a program$FG_BLUE                          *"
-echo -e "$FG_BLUE* $FG_GREEN update = Update the system$FG_BLUE                             *"
-echo -e "$FG_BLUE* $FG_GREEN cleanup = Clean up the package cache$FG_BLUE                   *"
-echo -e "$FG_BLUE*                                                         *"
-echo -e "$FG_BLUE***********************************************************"
+export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
+export LESS=' -R'
