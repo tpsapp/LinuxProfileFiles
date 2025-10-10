@@ -78,3 +78,9 @@ if [ "$filesChanged" = true ]; then
     echo "Running mkinitcpio for updated initramfs images"
     sudo mkinitcpio -P
 fi
+
+if $USER = "tpsapp" ; then
+    git clone https://github.com/tpsapp/LinuxProfileFiles.git
+    cd LinuxProfileFiles
+    bash restore_files.sh
+fi
