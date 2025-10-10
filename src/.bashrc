@@ -44,6 +44,10 @@ case $- in
       *) return;;
 esac
 
+if [ -f /usr/bin/atuin ]; then
+    eval "$(atuin init bash --disable-up-arrow)"
+fi
+
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
@@ -114,6 +118,7 @@ unset color_prompt force_color_prompt
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export EDITOR=vim
+export VISUAL=vim
 export LS_COLORS=$LS_COLORS:"*.wmv=01;35":"*.wma=01;35":"*.flv=01;35":"*.m4a=01;35"
 export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 

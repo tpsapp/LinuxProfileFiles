@@ -32,6 +32,10 @@ cp src/.config/katerc ~/.config/
 # Starship files
 cp src/.config/starship.toml ~/.config
 
+# Atuin files
+cp src/.config/atuin/config.toml ~/.config/atuin/
+cp src/.config/atuin/themes/nord.toml ~/.config/atuin/themes/
+
 # script files
 # check if ~/.local/bin exists, if not create it
 if ! [ -d ~/.local/bin ]; then
@@ -58,3 +62,8 @@ if ! [ -d ~/.ssh ]; then
 fi
 # copy all files from src/.ssh to ~/.ssh
 cp src/.ssh/* ~/.ssh/
+
+# Pacman config files
+sudo cp src/etc/pacman.conf /etc/
+sudo chown root:root /etc/pacman.conf
+sudo chmod 644 /etc/pacman.conf
