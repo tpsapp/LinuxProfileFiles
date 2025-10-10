@@ -15,24 +15,26 @@ sudo pacman -Syu --noconfirm
 
 # Install necessary tools
 echo "Installing necessary tools..."
-sudo pacman -S vim git go pacman-contrib --noconfirm
+sudo pacman -S vim git go pacman-contrib --noconfirm --needed
 
 # Install yay from AUR
-echo "Installing yay from AUR..."
-git clone https://aur.archlinux.org/yay-git.git
-cd yay-git
-makepkg -si --noconfirm
-cd ..
-rm -rf yay-git
+if ! [ -f /usr/bin/yay ]; then
+    echo "Installing yay from AUR..."
+    git clone https://aur.archlinux.org/yay-git.git
+    cd yay-git
+    makepkg -si --noconfirm
+    cd ..
+    rm -rf yay-git
+fi
 
 # Rank 10 fastest pacman mirrors
 echo "Ranking 10 fastest pacman mirrors..."
 sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
-sudo rankmirrors -n 10 /etc/pacman.d/mirrorlist.backup | sudo tee /etc/pacman.d/mirrorlist
+sudo rankmirrors -w -n 10 /etc/pacman.d/mirrorlist.backup | sudo tee /etc/pacman.d/mirrorlist
 
 # Install base applications
 echo "Installing base applications..."
-yay -S thunderbird firewalld cups hplip networkmanager-openvpn openssh cups-filters cups-pdf systray-x-kde inetutils zip unzip p7zip unrar unarj exfatprogs ntfs-3g dosfstools packagekit-qt6 libreoffice-fresh plymouth intel-ucode pkgfile nerd-fonts starship bash-completion lesspipe nano plymouth-kcm adobe-source-code-pro-fonts github-cli nmap nikto hexchat steam system76-scheduler system76-firmware php gimp vlc system-config-printer google-chrome docker docker-compose docker-rootless-extras docker-tray visual-studio-code-bin blesh 1password 1password-cli github-desktop firmware-manager vim-plug system76-dkms system76-driver system76-power reflector atuin openrazer-driver-dkms openrazer-daemon libopenrazer razergenie input-remapper-bin --noconfirm
+yay -S thunderbird firewalld cups hplip networkmanager-openvpn openssh cups-filters cups-pdf systray-x-kde inetutils zip unzip p7zip unrar unarj exfatprogs ntfs-3g dosfstools packagekit-qt6 libreoffice-fresh plymouth intel-ucode pkgfile nerd-fonts starship bash-completion lesspipe nano plymouth-kcm adobe-source-code-pro-fonts github-cli nmap nikto hexchat steam system76-scheduler system76-firmware php gimp vlc system-config-printer docker docker-compose docker-rootless-extras docker-tray visual-studio-code-bin blesh 1password 1password-cli github-desktop firmware-manager vim-plug system76-dkms system76-driver system76-power reflector atuin openrazer-driver-dkms openrazer-daemon libopenrazer razergenie input-remapper-bin --noconfirm --needed
 
 # Enable and start services
 echo "Enabling and starting services..."
@@ -77,10 +79,4 @@ fi
 if [ "$filesChanged" = true ]; then
     echo "Running mkinitcpio for updated initramfs images"
     sudo mkinitcpio -P
-fi
-
-if $USER = "tpsapp" ; then
-    git clone https://github.com/tpsapp/LinuxProfileFiles.git
-    cd LinuxProfileFiles
-    bash restore_files.sh
 fi
