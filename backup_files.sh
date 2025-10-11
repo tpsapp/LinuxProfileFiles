@@ -33,8 +33,8 @@ cp ~/.config/katerc src/.config/
 cp ~/.config/starship.toml src/.config
 
 # Atuin files
-cp ~/.config/atuin/config.toml src/.config/atuin/
-cp ~/.config/atuin/themes/nord.toml src/.config/atuin/themes/
+cp ~/.config/atuin/config.toml src/.config/atuin/config.toml
+cp ~/.config/atuin/themes/nord.toml src/.config/atuin/themes/nord.toml
 
 # script files
 cp ~/.local/bin/*.sh src/.local/bin/
@@ -43,10 +43,10 @@ cp ~/.local/bin/*.sh src/.local/bin/
 cp ~/Pictures/Wallpapers/*.* src/Pictures/Wallpapers/
 
 # avatar image
-cp ~/Pictures/avatar.jpg src/Pictures/
+cp ~/Pictures/avatar.jpg src/Pictures/avatar.jpg
 
 # ssh files
 cp ~/.ssh/* src/.ssh/
 
 # Pacman config files
-cp /etc/pacman.conf src/etc/
+cp /etc/pacman.conf src/etc/pacman.conf

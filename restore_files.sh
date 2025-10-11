@@ -33,6 +33,14 @@ cp src/.config/katerc ~/.config/
 cp src/.config/starship.toml ~/.config
 
 # Atuin files
+# check if ~/.config/atuin and ~/.config/atuin/themes exist, if not create them
+if ! [ -d ~/.config/atuin ]; then
+    mkdir -p ~/.config/atuin
+fi
+if ! [ -d ~/.config/atuin/themes ]; then
+    mkdir -p ~/.config/atuin/themes
+fi
+# copy the files
 cp src/.config/atuin/config.toml ~/.config/atuin/
 cp src/.config/atuin/themes/nord.toml ~/.config/atuin/themes/
 
@@ -53,7 +61,7 @@ fi
 cp src/Pictures/Wallpapers/*.* ~/Pictures/Wallpapers
 
 # avatar image
-cp src/Pictures/avatar.jpg ~/Pictures/
+cp src/Pictures/avatar.jpg ~/Pictures/avatar.jpg
 
 # ssh files
 # check if ~/.ssh exists, if not create it
@@ -64,6 +72,6 @@ fi
 cp src/.ssh/* ~/.ssh/
 
 # Pacman config files
-sudo cp src/etc/pacman.conf /etc/
+sudo cp src/etc/pacman.conf /etc/pacman.conf
 sudo chown root:root /etc/pacman.conf
 sudo chmod 644 /etc/pacman.conf
