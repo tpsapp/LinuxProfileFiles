@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ex
 
 # This is a script to install the base applications for Arch Linux for my personal use.
 
