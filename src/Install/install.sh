@@ -81,3 +81,16 @@ if [ "$filesChanged" = true ]; then
     echo "Running mkinitcpio for updated initramfs images"
     sudo mkinitcpio -P
 fi
+
+if $USER == "tpsapp"; then
+    echo "Would you like to add your profile files? (y/n)"
+    read -r response
+    if [[ $response == "y" || $response == "Y" ]]; then
+        echo "Cloning profile files repository..."
+        git clone https://github.com/tpsapp/LinuxProfileFiles
+        cd LinuxProfileFiles/
+        ./install.sh
+        cd ..
+        rm -rf LinuxProfileFiles/
+    fi
+fi
