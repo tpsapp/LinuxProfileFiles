@@ -27,6 +27,18 @@ jobs:
           chmod +x ./cleanup_baks.sh || true
           ./cleanup_baks.sh --dry-run
 
+      - name: Run backup script dry-run
+        run: |
+          echo "Running backup_files.sh --dry-run to validate backup runtime behaviour"
+          chmod +x ./backup_files.sh || true
+          ./backup_files.sh --dry-run
+
+      - name: Run restore script dry-run
+        run: |
+          echo "Running restore_files.sh --dry-run to validate restore runtime behaviour"
+          chmod +x ./restore_files.sh || true
+          ./restore_files.sh --dry-run
+
       - name: Run bash -n (syntax check)
         run: |
           echo "Running bash -n syntax check on all .sh files..."
