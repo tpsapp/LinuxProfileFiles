@@ -42,6 +42,20 @@ if ! ping -c 1 archlinux.org > /dev/null 2>&1; then
     exit 1
 fi
 
+## Rank 10 fastest pacman mirrors (if rankmirrors available)
+echo "Ranking 10 fastest pacman mirrors..."
+if command -v rankmirrors > /dev/null 2>&1; then
+    run_sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+    # Some rankmirrors implementations accept -n for number; use -n 10
+    if $DRY_RUN; then
+        echo "[DRY-RUN] rankmirrors -n 10 /etc/pacman.d/mirrorlist.backup | sudo tee /etc/pacman.d/mirrorlist"
+    else
+        rankmirrors -n 10 /etc/pacman.d/mirrorlist.backup | sudo tee /etc/pacman.d/mirrorlist > /dev/null
+    fi
+else
+    echo "rankmirrors not found; skipping mirror ranking"
+fi
+
 ## Update system
 echo "Updating system..."
 run_sudo pacman -Syu --noconfirm
@@ -61,24 +75,10 @@ else
     echo "yay already installed"
 fi
 
-## Rank 10 fastest pacman mirrors (if rankmirrors available)
-echo "Ranking 10 fastest pacman mirrors..."
-if command -v rankmirrors > /dev/null 2>&1; then
-    run_sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
-    # Some rankmirrors implementations accept -n for number; use -n 10
-    if $DRY_RUN; then
-        echo "[DRY-RUN] rankmirrors -n 10 /etc/pacman.d/mirrorlist.backup | sudo tee /etc/pacman.d/mirrorlist"
-    else
-        rankmirrors -n 10 /etc/pacman.d/mirrorlist.backup | sudo tee /etc/pacman.d/mirrorlist > /dev/null
-    fi
-else
-    echo "rankmirrors not found; skipping mirror ranking"
-fi
-
 ## Install base applications
 echo "Installing base applications..."
 PKGS=(
-    thunderbird firewalld cups hplip networkmanager-openvpn openssh cups-filters cups-pdf systray-x-kde
+    thunderbird firewalld cups hplip networkmanager-openvpn google-chrome openssh cups-filters cups-pdf systray-x-kde
     inetutils zip unzip p7zip unrar unarj exfatprogs ntfs-3g dosfstools packagekit-qt6 libreoffice-fresh
     plymouth intel-ucode pkgfile nerd-fonts starship bash-completion lesspipe nano plymouth-kcm
     adobe-source-code-pro-fonts github-cli nmap nikto hexchat steam system76-scheduler system76-firmware

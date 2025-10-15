@@ -153,4 +153,27 @@ for pattern in "${SSH_INCLUDES[@]}"; do
 done
 shopt -u nullglob
 
+# Export installed package lists (official + AUR) into the repo's src/ directory
+PKG_OFF_PATH="$DEST_ROOT/pkglist.txt"
+PKG_AUR_PATH="$DEST_ROOT/aur_pkglist.txt"
+
+if [ "$DRY_RUN" = true ]; then
+	log "[DRY-RUN] would export installed package lists to $PKG_OFF_PATH and $PKG_AUR_PATH"
+else
+	log "Exporting installed package lists"
+	# Official repo packages
+	if command -v pacman >/dev/null 2>&1; then
+		pacman -Qen > "$PKG_OFF_PATH" 2>>"$LOG_FILE" || log "Warning: pacman -Qen failed"
+	else
+		log "pacman not found; skipping official package export"
+	fi
+	# AUR packages (local/foreign)
+	if command -v pacman >/dev/null 2>&1; then
+		pacman -Qem > "$PKG_AUR_PATH" 2>>"$LOG_FILE" || log "Warning: pacman -Qem failed"
+	else
+		log "pacman not found; skipping AUR package export"
+	fi
+	log "Exported package lists: $PKG_OFF_PATH, $PKG_AUR_PATH"
+fi
+
 log "Backup finished. Log saved to $LOG_FILE"
