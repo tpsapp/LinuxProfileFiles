@@ -21,6 +21,12 @@ jobs:
         run: |
           sudo apt-get update && sudo apt-get install -y shellcheck
 
+      - name: Run cleanup script dry-run
+        run: |
+          echo "Running cleanup_baks.sh --dry-run to validate runtime behaviour"
+          chmod +x ./cleanup_baks.sh || true
+          ./cleanup_baks.sh --dry-run
+
       - name: Run bash -n (syntax check)
         run: |
           echo "Running bash -n syntax check on all .sh files..."
