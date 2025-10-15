@@ -25,16 +25,62 @@ mkdir -p "$LOG_DIR"
 LOG_FILE="$LOG_DIR/cleanup_$(date +%Y%m%d%H%M%S).log"
 log() { printf '%s %s\n' "$(date +'%Y-%m-%d %T')" "$*" | tee -a "$LOG_FILE"; }
 
-# Search locations
 declare -a SEARCH_PATHS=("$HOME")
+
+# Build the list of locations to scan for .bak.* files based on what
+# the restore script writes: files, special files, and directories.
+declare -a FILES=(
+  ".bashrc" ".bash_aliases" ".bash_functions" ".bash_logout"
+  ".bash_profile" ".profile" ".dir_colors" ".gitconfig" ".nanorc"
+  ".vimrc" ".Xresources" "Pictures/avatar.jpg"
+)
+
+declare -a SPECIAL_FILES=(
+  ".config/dolphinrc" ".config/katerc" ".config/starship.toml"
+  ".config/atuin/config.toml" ".config/atuin/themes/nord.toml"
+)
+
+declare -a DIRS=(
+  ".local/bin"
+  "Pictures/Wallpapers"
+)
+
+declare -a SEARCH_PATHS=("$HOME")
+
+# Add parent directories for the individual files
+for rel in "${FILES[@]}"; do
+  SEARCH_PATHS+=("$HOME/$(dirname "$rel")")
+done
+for rel in "${SPECIAL_FILES[@]}"; do
+  SEARCH_PATHS+=("$HOME/$(dirname "$rel")")
+done
+# Add the directories that were synced
+for rel in "${DIRS[@]}"; do
+  SEARCH_PATHS+=("$HOME/$rel")
+done
+
 if [ "$INCLUDE_SYSTEM" = true ]; then
   SEARCH_PATHS+=("/etc")
 fi
 
 log "Starting cleanup. DRY_RUN=$DRY_RUN INCLUDE_SYSTEM=$INCLUDE_SYSTEM"
 
-# Find .bak.* files under the given paths
-mapfile -t FOUND < <(find "${SEARCH_PATHS[@]}" -type f -name "*.bak.*" 2>/dev/null || true)
+# Deduplicate and keep only existing directories
+declare -A _seen
+declare -a _unique
+for p in "${SEARCH_PATHS[@]}"; do
+  # skip empty
+  [ -z "$p" ] && continue
+  # normalize path (avoid trailing slash differences)
+  p="${p%/}"
+  if [ -d "$p" ] && [ -z "${_seen[$p]:-}" ]; then
+    _unique+=("$p")
+    _seen[$p]=1
+  fi
+done
+
+# Find .bak.* files under the computed locations
+mapfile -t FOUND < <(find "${_unique[@]}" -type f -name "*.bak.*" 2>/dev/null || true)
 
 if [ ${#FOUND[@]} -eq 0 ]; then
   log "No backup files (\*.bak.*) found under: ${SEARCH_PATHS[*]}"
@@ -65,11 +111,25 @@ fi
 
 # Remove files
 for f in "${FOUND[@]}"; do
-  if [ -e "$f" ]; then
-    rm -f "$f"
-    log "REMOVED: $f"
-  else
+  if [ ! -e "$f" ]; then
     log "SKIP (missing): $f"
+    continue
+  fi
+
+  if [[ "$f" == /etc/* ]]; then
+    if [ "$DRY_RUN" = true ]; then
+      log "[DRY-RUN] would sudo rm -f $f"
+    else
+      sudo rm -f "$f"
+      log "REMOVED (sudo): $f"
+    fi
+  else
+    if [ "$DRY_RUN" = true ]; then
+      log "[DRY-RUN] would rm -f $f"
+    else
+      rm -f "$f"
+      log "REMOVED: $f"
+    fi
   fi
 done
 
