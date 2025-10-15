@@ -96,6 +96,26 @@ ensure_rsync() {
 
 ensure_rsync || log "Warning: rsync not available; some operations may fail"
 
+# Define what this script will restore (mirror the backup script's targets)
+# These need to be declared before the summary below so counts are accurate
+declare -a FILES=(
+  ".bashrc" ".bash_aliases" ".bash_functions" ".bash_logout"
+  ".bash_profile" ".profile" ".dir_colors" ".gitconfig" ".nanorc"
+  ".vimrc" ".Xresources" "Pictures/avatar.jpg"
+)
+
+# Special files copied by backup_files.sh
+declare -a SPECIAL_FILES=(
+  ".config/dolphinrc" ".config/katerc" ".config/starship.toml"
+  ".config/atuin/config.toml" ".config/atuin/themes/nord.toml"
+)
+
+# Directories synced by backup_files.sh (use rsync for directories)
+declare -a DIRS=(
+  ".local/bin"
+  "Pictures/Wallpapers"
+)
+
 # If not a dry run, show a summary of actions and ask for one confirmation to proceed
 if [ "$DRY_RUN" != true ]; then
   declare -a SUMMARY_FILES=()
@@ -150,38 +170,18 @@ if [ "$DRY_RUN" != true ]; then
       *) log "Restore cancelled by user"; exit 0 ;;
     esac
   fi
-fi
-
-# Restore selected files (mirror the backup script's targets)
-declare -a FILES=(
-  ".bashrc" ".bash_aliases" ".bash_functions" ".bash_logout"
-  ".bash_profile" ".profile" ".dir_colors" ".gitconfig" ".nanorc"
-  ".vimrc" ".Xresources" "Pictures/avatar.jpg"
-)
-
-for rel in "${FILES[@]}"; do
+      fi
+    for rel in "${FILES[@]}"; do
   src="$SRC_ROOT/$rel"
   dst="$HOME/$rel"
   restore_file "$src" "$dst"
 done
-
-# Special files copied by backup_files.sh
-declare -a SPECIAL_FILES=(
-  ".config/dolphinrc" ".config/katerc" ".config/starship.toml"
-  ".config/atuin/config.toml" ".config/atuin/themes/nord.toml"
-)
 
 for rel in "${SPECIAL_FILES[@]}"; do
   src="$SRC_ROOT/$rel"
   dst="$HOME/$rel"
   restore_file "$src" "$dst"
 done
-
-# Directories synced by backup_files.sh (use rsync for directories)
-declare -a DIRS=(
-  ".local/bin"
-  "Pictures/Wallpapers"
-)
 
 for rel in "${DIRS[@]}"; do
   srcdir="$SRC_ROOT/$rel"
