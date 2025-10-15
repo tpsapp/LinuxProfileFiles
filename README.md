@@ -20,6 +20,23 @@ This repository contains helper scripts to collect and restore local profile fil
     - `--noprompt` : Skip the one-time confirmation prompt and proceed immediately (useful for automation/CI). The script still creates timestamped backups before overwriting unless `--dry-run` is set.
   - The script backs up existing files to `*.bak.TIMESTAMP` before restoring.
 
+Continuous Integration
+
+This repository includes a lightweight GitHub Actions workflow that runs shellcheck on pushed commits and pull requests to help catch common shell scripting issues automatically.
+
+Quick examples
+
+```bash
+# Preview a backup without modifying files
+./backup_files.sh --dry-run
+
+# Preview a restore and see the one-time summary
+./restore_files.sh --dry-run
+
+# Restore non-interactively (skip the one-time prompt)
+./restore_files.sh --noprompt
+```
+
 Security notes:
 
 - Do NOT commit private keys, secrets, or other sensitive material to this repository. The scripts intentionally avoid copying SSH private keys.
