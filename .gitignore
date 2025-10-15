@@ -1,1 +1,11 @@
 .git
+
+# Ignore backup logs and temporary archives
+logs/
+
+# Ignore SSH private keys and other sensitive files that may be copied into src/
+src/home/**/.ssh/id_*
+src/home/**/.gnupg/
+
+# Ignore system-specific pacman config backup (if created)
+src/etc/pacman.conf

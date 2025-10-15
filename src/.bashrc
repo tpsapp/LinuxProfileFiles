@@ -13,8 +13,10 @@ if [ -f ~/.bash_functions ]; then
     . ~/.bash_functions
 fi
 
-if [ -f /usr/bin/starship ]; then
-    eval "$(starship init bash)"
+if [[ "$TERM_PROGRAM" != "vscode" ]]; then
+    if [ -f /usr/bin/starship ]; then
+        eval "$(starship init bash)"
+    fi
 fi
 
 FG_BLACK='\e[0;30m'

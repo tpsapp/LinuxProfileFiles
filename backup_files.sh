@@ -1,52 +1,156 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Safe dotfiles backup to ./src
+# Usage:
+#   ./backup_files.sh               # perform backup (non-destructive)
+#   ./backup_files.sh --dry-run     # preview actions without writing files
+#
+# Options:
+#   --dry-run   Preview actions only; do not create directories or copy files.
+#
+# Notes:
+#   - The script copies selected files and directories into ./src and writes a
+#     timestamped log to ./logs/backup_YYYYMMDDHHMMSS.log.
+#   - By default the script avoids copying SSH private keys and other secret
+#     material. See README.md for recommended secret handling.
 
-# bash files
-cp ~/.bashrc src/
-cp ~/.bash_aliases src/
-cp ~/.bash_functions src/
-cp ~/.bash_logout src/
-cp ~/.bash_profile src/
-cp ~/.profile src/
+set -Eeuo pipefail
+IFS=$'\n\t'
 
-# dircolor files
-cp ~/.dir_colors src/
+DRY_RUN=false
+if [ "${1:-}" = "--dry-run" ]; then
+	DRY_RUN=true
+	echo "DRY-RUN: no files will be written"
+fi
 
-# git files
-cp ~/.gitconfig src/
+DEST_ROOT="$(pwd)/src"
+LOG_DIR="$(pwd)/logs"
+mkdir -p "$DEST_ROOT" "$LOG_DIR"
+LOG_FILE="$LOG_DIR/backup_$(date +%Y%m%d%H%M%S).log"
 
-# nano files
-cp ~/.nanorc src/
+log() {
+	printf '%s %s\n' "$(date +'%Y-%m-%d %T')" "$*" | tee -a "$LOG_FILE"
+}
 
-# vim files
-cp ~/.vimrc src/
+copy_file() {
+	local src="$1"
+	[[ "$src" == ~* ]] && src="${src/#\~/$HOME}"
+	if [ ! -e "$src" ]; then
+		log "SKIP: source not found: $src"
+		return
+	fi
+	local dst="$DEST_ROOT${src#/}"
+	local dstdir
+	dstdir=$(dirname "$dst")
+	if [ "$DRY_RUN" = true ]; then
+		log "[DRY-RUN] create-dir: $dstdir"
+		log "[DRY-RUN] copy: $src -> $dst"
+	else
+		mkdir -p "$dstdir"
+		cp --preserve=mode,timestamps "$src" "$dst"
+		log "COPIED: $src -> $dst"
+	fi
+}
 
-# X11 files
-cp ~/.Xresources src/
+copy_tree() {
+	local src="$1"
+	[[ "$src" == ~* ]] && src="${src/#\~/$HOME}"
+	if [ ! -e "$src" ]; then
+		log "SKIP: directory not found: $src"
+		return
+	fi
+	local rel="${src#/}"
+	local dst_dir="$DEST_ROOT/$rel"
+	if [ "$DRY_RUN" = true ]; then
+		log "[DRY-RUN] rsync -a \"$src/\" \"$dst_dir/\""
+	else
+		mkdir -p "$dst_dir"
+		# Do not remove any files in the destination; avoid --delete
+		rsync -a --links --times --omit-dir-times "$src/" "$dst_dir/" >>"$LOG_FILE" 2>&1
+		log "RSYNCED: $src/ -> $dst_dir/"
+	fi
+}
 
-# Dolphin files
-cp ~/.config/dolphinrc src/.config/
+# Single files to copy (expand ~)
+FILES=(
+	"$HOME/.bashrc"
+	"$HOME/.bash_aliases"
+	"$HOME/.bash_functions"
+	"$HOME/.bash_logout"
+	"$HOME/.bash_profile"
+	"$HOME/.profile"
+	"$HOME/.dir_colors"
+	"$HOME/.gitconfig"
+	"$HOME/.nanorc"
+	"$HOME/.vimrc"
+	"$HOME/.Xresources"
+	"$HOME/Pictures/avatar.jpg"
+	"/etc/pacman.conf"   # may require sudo to read
+)
 
-# Kate files
-cp ~/.config/katerc src/.config/
+# Directories to copy (rsync)
+DIRS=(
+	"$HOME/.local/bin"
+	"$HOME/Pictures/Wallpapers"
+)
 
-# Starship files
-cp ~/.config/starship.toml src/.config
+# Special and ssh-safe patterns
+SPECIAL_FILES=(
+	"$HOME/.config/dolphinrc"
+	"$HOME/.config/katerc"
+	"$HOME/.config/starship.toml"
+	"$HOME/.config/atuin/config.toml"
+	"$HOME/.config/atuin/themes/nord.toml"
+)
 
-# Atuin files
-cp ~/.config/atuin/config.toml src/.config/atuin/config.toml
-cp ~/.config/atuin/themes/nord.toml src/.config/atuin/themes/nord.toml
+SSH_INCLUDES=(
+	"$HOME/.ssh/*.pub"
+	"$HOME/.ssh/config"
+	"$HOME/.ssh/known_hosts"
+)
 
-# script files
-cp ~/.local/bin/*.sh src/.local/bin/
+log "Starting backup. DEST_ROOT=$DEST_ROOT DRY_RUN=$DRY_RUN"
 
-# bg images
-cp ~/Pictures/Wallpapers/*.* src/Pictures/Wallpapers/
+# Ensure rsync is available (used by copy_tree)
+ensure_rsync() {
+	if command -v rsync >/dev/null 2>&1; then
+		return 0
+	fi
+	if [ "$DRY_RUN" = true ]; then
+		log "[DRY-RUN] rsync is not installed; would install via pacman"
+		return 0
+	fi
+	if command -v pacman >/dev/null 2>&1; then
+		log "rsync not found; installing with sudo pacman -S --noconfirm rsync"
+		sudo pacman -S --noconfirm rsync
+	else
+		log "rsync not found and pacman is not available; please install rsync manually"
+		return 1
+	fi
+}
 
-# avatar image
-cp ~/Pictures/avatar.jpg src/Pictures/avatar.jpg
+ensure_rsync || log "Warning: rsync not available; directory syncing may fail"
 
-# ssh files
-cp ~/.ssh/* src/.ssh/
+for f in "${FILES[@]}"; do
+	copy_file "$f" || true
+done
 
-# Pacman config files
-cp /etc/pacman.conf src/etc/pacman.conf
+for s in "${SPECIAL_FILES[@]}"; do
+	copy_file "$s"
+done
+
+for d in "${DIRS[@]}"; do
+	copy_tree "$d"
+done
+
+# SSH safe copy
+shopt -s nullglob
+for pattern in "${SSH_INCLUDES[@]}"; do
+	# expand glob pattern into array safely
+	mapfile -t matches < <(compgen -G "$pattern" || printf '')
+	for match in "${matches[@]}"; do
+		copy_file "$match"
+	done
+done
+shopt -u nullglob
+
+log "Backup finished. Log saved to $LOG_FILE"
