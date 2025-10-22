@@ -32,42 +32,58 @@ log() {
 }
 
 copy_file() {
-	local src="$1"
-	[[ "$src" == ~* ]] && src="${src/#\~/$HOME}"
-	if [ ! -e "$src" ]; then
-		log "SKIP: source not found: $src"
-		return
-	fi
-	local dst="$DEST_ROOT${src#/}"
-	local dstdir
-	dstdir=$(dirname "$dst")
-	if [ "$DRY_RUN" = true ]; then
-		log "[DRY-RUN] create-dir: $dstdir"
-		log "[DRY-RUN] copy: $src -> $dst"
-	else
-		mkdir -p "$dstdir"
-		cp --preserve=mode,timestamps "$src" "$dst"
-		log "COPIED: $src -> $dst"
-	fi
+       local src="$1"
+       [[ "$src" == ~* ]] && src="${src/#\~/$HOME}"
+       if [ ! -e "$src" ]; then
+	       log "SKIP: source not found: $src"
+	       return
+       fi
+       local dst
+       if [[ "$src" == "$HOME"* ]]; then
+	       # Home files: preserve relative path under src
+	       dst="$DEST_ROOT${src#$HOME}"
+       elif [[ "$src" == "/etc/pacman.conf" ]]; then
+	       # System file: put in src/etc/
+	       dst="$DEST_ROOT/etc/pacman.conf"
+       else
+	       # Other absolute paths: preserve under src
+	       dst="$DEST_ROOT${src}"
+       fi
+       local dstdir
+       dstdir=$(dirname "$dst")
+       if [ "$DRY_RUN" = true ]; then
+	       log "[DRY-RUN] create-dir: $dstdir"
+	       log "[DRY-RUN] copy: $src -> $dst"
+       else
+	       mkdir -p "$dstdir"
+	       cp --preserve=mode,timestamps "$src" "$dst"
+	       log "COPIED: $src -> $dst"
+       fi
 }
 
 copy_tree() {
-	local src="$1"
-	[[ "$src" == ~* ]] && src="${src/#\~/$HOME}"
-	if [ ! -e "$src" ]; then
-		log "SKIP: directory not found: $src"
-		return
-	fi
-	local rel="${src#/}"
-	local dst_dir="$DEST_ROOT/$rel"
-	if [ "$DRY_RUN" = true ]; then
-		log "[DRY-RUN] rsync -a \"$src/\" \"$dst_dir/\""
-	else
-		mkdir -p "$dst_dir"
-		# Do not remove any files in the destination; avoid --delete
-		rsync -a --links --times --omit-dir-times "$src/" "$dst_dir/" >>"$LOG_FILE" 2>&1
-		log "RSYNCED: $src/ -> $dst_dir/"
-	fi
+       local src="$1"
+       [[ "$src" == ~* ]] && src="${src/#\~/$HOME}"
+       if [ ! -e "$src" ]; then
+	       log "SKIP: directory not found: $src"
+	       return
+       fi
+       local dst_dir
+       if [[ "$src" == "$HOME"* ]]; then
+	       # Home directories: preserve path relative to $HOME
+	       dst_dir="$DEST_ROOT${src#$HOME}"
+       else
+	       # Other absolute paths: preserve under src
+	       dst_dir="$DEST_ROOT/${src#/}"
+       fi
+       if [ "$DRY_RUN" = true ]; then
+	       log "[DRY-RUN] rsync -a \"$src/\" \"$dst_dir/\""
+       else
+	       mkdir -p "$dst_dir"
+	       # Do not remove any files in the destination; avoid --delete
+	       rsync -a --links --times --omit-dir-times "$src/" "$dst_dir/" >>"$LOG_FILE" 2>&1
+	       log "RSYNCED: $src/ -> $dst_dir/"
+       fi
 }
 
 # Single files to copy (expand ~)
@@ -84,7 +100,7 @@ FILES=(
 	"$HOME/.vimrc"
 	"$HOME/.Xresources"
 	"$HOME/Pictures/avatar.jpg"
-	"/etc/pacman.conf"   # may require sudo to read
+	"/etc/pacman.conf"   # will be placed in src/etc/
 )
 
 # Directories to copy (rsync)

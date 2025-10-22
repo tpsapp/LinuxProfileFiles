@@ -1,0 +1,15 @@
+1password 8.11.14-24
+1password-cli 2.32.0-2
+blesh-git 0.4.0_devel4.r2296.8060b7ad-1
+firmware-manager 0.1.5+15+ga45bdc7-1
+github-desktop 3.4.14-1
+google-chrome 141.0.7390.107-1
+input-remapper-bin 2.1.1-1
+lug-helper 1:4.4-1
+razergenie 1.3.0-1
+system76-dkms-git 1.0.20.r0.g79f5488-1
+system76-driver 24.04.13-1
+system76-power 1.2.8-1
+vim-plug 0.14.0-1
+visual-studio-code-bin 1.105.1-1
+yay-git 12.5.1.r0.g60b7f639-2

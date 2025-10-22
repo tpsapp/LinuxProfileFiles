@@ -126,3 +126,5 @@ export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 
 export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
 export LESS=' -R'
+
+[[ ${BLE_VERSION-} ]] && ble-attach
