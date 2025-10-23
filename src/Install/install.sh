@@ -85,7 +85,8 @@ PKGS=(
     php gimp vlc system-config-printer docker docker-compose docker-rootless-extras docker-tray
     visual-studio-code-bin blesh 1password 1password-cli github-desktop firmware-manager vim-plug
     system76-dkms system76-driver system76-power reflector atuin openrazer-driver-dkms openrazer-daemon
-    libopenrazer razergenie input-remapper-bin
+    libopenrazer razergenie input-remapper-bin gamemode lib32-gamemode intel-media-driver libva-intel-driver libva-nvidia-driver
+    ollama ollama-cuda rsync virt-manager vulkan-intel nvidia-dkms firefox gameconqueror
 )
 
 if command -v yay > /dev/null 2>&1; then
