@@ -34,5 +34,9 @@ Plugins=appimagethumbnail,audiothumbnail,blenderthumbnail,comicbookthumbnail,cur
 [VersionControl]
 enabledPlugins=Git
 
+[ViewPropertiesDialog]
+2 screens: Height=587
+2 screens: Width=407
+
 [kuick-move]
 Paths[$e]=$HOME/SAPPNAS/Personal

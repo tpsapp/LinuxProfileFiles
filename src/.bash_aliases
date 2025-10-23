@@ -32,12 +32,14 @@ if [ -f /usr/bin/yay ]; then
     alias uinst='yay -R'
     alias search='yay -Ss'
     alias update='yay --needed -Syu'
+    alias ncupd='yay --needed --noconfirm -Syu'
     alias cleanup='yay -Rns $(yay -Qtdq)'
 elif [ -f /usr/bin/pacman ]; then
     alias inst='sudo pacman --needed -S'
     alias uinst='sudo pacman -R'
     alias search='pacman -Ss'
     alias update='sudo pacman --needed -Syu'
+    alias ncupd='sudo pacman --needed --noconfirm -Syu'
     alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'
 elif [ -f /usr/bin/nala ]; then
     alias inst='sudo nala install'

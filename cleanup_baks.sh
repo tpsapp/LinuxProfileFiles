@@ -38,11 +38,14 @@ declare -a FILES=(
 declare -a SPECIAL_FILES=(
   ".config/dolphinrc" ".config/katerc" ".config/starship.toml"
   ".config/atuin/config.toml" ".config/atuin/themes/nord.toml"
+  ".config/openrazer/razer.conf" ".config/openrazer/persistence.conf"
+  ".config/razergenie/RazerGenie.conf" ".config/yay/config.json"
 )
 
 declare -a DIRS=(
   ".local/bin"
   "Pictures/Wallpapers"
+  ".config/autostart"
 )
 
 declare -a SEARCH_PATHS=("$HOME")

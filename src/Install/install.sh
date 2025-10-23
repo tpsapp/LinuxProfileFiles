@@ -106,7 +106,7 @@ fi
 
 ## Enable and start services
 echo "Enabling and starting services..."
-run_sudo systemctl enable firewalld cups docker bluetooth com.system76.PowerDaemon com.system76.Scheduler system76-firmware-daemon system76 pkgfile-update.timer reflector.service reflector.timer --now
+run_sudo systemctl enable firewalld cups docker bluetooth com.system76.PowerDaemon com.system76.Scheduler system76-firmware-daemon system76 nvidia-powerd pkgfile-update.timer reflector.service reflector.timer --now
 
 ## Add local systems to host file (idempotent)
 echo "Adding local systems to /etc/hosts..."

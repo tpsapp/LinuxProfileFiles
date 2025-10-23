@@ -108,12 +108,15 @@ declare -a FILES=(
 declare -a SPECIAL_FILES=(
   ".config/dolphinrc" ".config/katerc" ".config/starship.toml"
   ".config/atuin/config.toml" ".config/atuin/themes/nord.toml"
+  ".config/openrazer/razer.conf" ".config/openrazer/persistence.conf"
+  ".config/razergenie/RazerGenie.conf" ".config/yay/config.json"
 )
 
 # Directories synced by backup_files.sh (use rsync for directories)
 declare -a DIRS=(
   ".local/bin"
   "Pictures/Wallpapers"
+  ".config/autostart"
 )
 
 # If not a dry run, show a summary of actions and ask for one confirmation to proceed

@@ -3,7 +3,7 @@
 blesh-git 0.4.0_devel4.r2296.8060b7ad-1
 firmware-manager 0.1.5+15+ga45bdc7-1
 github-desktop 3.4.14-1
-google-chrome 141.0.7390.107-1
+google-chrome 141.0.7390.122-1
 input-remapper-bin 2.1.1-1
 lug-helper 1:4.4-1
 razergenie 1.3.0-1

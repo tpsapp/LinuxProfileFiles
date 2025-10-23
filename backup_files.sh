@@ -107,6 +107,7 @@ FILES=(
 DIRS=(
 	"$HOME/.local/bin"
 	"$HOME/Pictures/Wallpapers"
+	"$HOME/.config/autostart"
 )
 
 # Special and ssh-safe patterns
@@ -116,6 +117,10 @@ SPECIAL_FILES=(
 	"$HOME/.config/starship.toml"
 	"$HOME/.config/atuin/config.toml"
 	"$HOME/.config/atuin/themes/nord.toml"
+	"$HOME/.config/openrazer/razer.conf"
+	"$HOME/.config/openrazer/persistence.conf"
+	"$HOME/.config/razergenie/RazerGenie.conf"
+	"$HOME/.config/yay/config.json"
 )
 
 SSH_INCLUDES=(
