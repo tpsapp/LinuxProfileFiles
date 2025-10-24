@@ -1,7 +1,7 @@
 [user]
 	name = Thomas Sapp
 	email = tpsapp@hotmail.com
-	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB/8lxvgyPpmbb3pSi5tCe1CBIKi3CW69l9wKAjr6cH4
+	signingkey = ED25519-V3C4-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX
 [color]
 	status = auto
 	branch = auto
