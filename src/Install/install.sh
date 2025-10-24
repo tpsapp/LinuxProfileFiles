@@ -36,32 +36,18 @@ run_sudo() {
 }
 
 ## Test if there is a network connection
-echo "Checking network connection..."
+echo "**** Checking network connection..."
 if ! ping -c 1 archlinux.org > /dev/null 2>&1; then
     echo "No network connection. Please connect to the internet and try again."
     exit 1
 fi
 
-## Rank 10 fastest pacman mirrors (if rankmirrors available)
-echo "Ranking 10 fastest pacman mirrors..."
-if command -v rankmirrors > /dev/null 2>&1; then
-    run_sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
-    # Some rankmirrors implementations accept -n for number; use -n 10
-    if $DRY_RUN; then
-        echo "[DRY-RUN] rankmirrors -n 10 /etc/pacman.d/mirrorlist.backup | sudo tee /etc/pacman.d/mirrorlist"
-    else
-        rankmirrors -n 10 /etc/pacman.d/mirrorlist.backup | sudo tee /etc/pacman.d/mirrorlist > /dev/null
-    fi
-else
-    echo "rankmirrors not found; skipping mirror ranking"
-fi
-
 ## Update system
-echo "Updating system..."
+echo "**** Updating system..."
 run_sudo pacman -Syu --noconfirm
 
 ## Install necessary tools
-echo "Installing necessary tools..."
+echo "**** Installing necessary tools..."
 run_sudo pacman -S --noconfirm --needed vim git go pacman-contrib
 
 ## Install yay from AUR (if missing)
@@ -75,42 +61,175 @@ else
     echo "yay already installed"
 fi
 
+## Rank 20 fastest pacman mirrors (if rankmirrors available)
+echo "**** Ranking 20 fastest pacman mirrors..."
+if command -v rankmirrors > /dev/null 2>&1; then
+    run_sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+    # Some rankmirrors implementations accept -n for number; use -n 20
+    if $DRY_RUN; then
+        echo "[DRY-RUN] rankmirrors -n 20 /etc/pacman.d/mirrorlist.backup | sudo tee /etc/pacman.d/mirrorlist"
+    else
+        rankmirrors -n 20 /etc/pacman.d/mirrorlist.backup | sudo tee /etc/pacman.d/mirrorlist > /dev/null
+    fi
+else
+    echo "rankmirrors not found; skipping mirror ranking"
+fi
+
 ## Install base applications
-echo "Installing base applications..."
+echo "**** Installing base applications..."
+ALL_INSTALLED=false
 PKGS=(
-    thunderbird firewalld cups hplip networkmanager-openvpn google-chrome openssh cups-filters cups-pdf systray-x-kde
-    inetutils zip unzip p7zip unrar unarj exfatprogs ntfs-3g dosfstools packagekit-qt6 libreoffice-fresh
-    plymouth intel-ucode pkgfile nerd-fonts starship bash-completion lesspipe nano plymouth-kcm
-    adobe-source-code-pro-fonts github-cli nmap nikto hexchat steam system76-scheduler system76-firmware
-    php gimp vlc system-config-printer docker docker-compose docker-rootless-extras docker-tray
-    visual-studio-code-bin blesh 1password 1password-cli github-desktop firmware-manager vim-plug
-    system76-dkms system76-driver system76-power reflector atuin openrazer-driver-dkms openrazer-daemon
-    libopenrazer razergenie input-remapper-bin gamemode lib32-gamemode intel-media-driver libva-intel-driver libva-nvidia-driver
-    ollama ollama-cuda rsync virt-manager vulkan-intel nvidia-dkms firefox gameconqueror
+    adobe-source-code-pro-fonts
+    atuin
+    bash-completion
+    cups
+    cups-filters
+    cups-pdf
+    docker
+    docker-compose
+    dosfstools
+    exfatprogs
+    firefox
+    firewalld
+    gameconqueror
+    gamemode
+    gimp
+    git
+    github-cli
+    go
+    hexchat
+    hplip
+    hunspell-en_us
+    inetutils
+    intel-media-driver
+    lesspipe
+    lib32-gamemode
+    lib32-vulkan-intel
+    libreoffice-fresh
+    libva-intel-driver
+    ncdu
+    nerd-fonts
+    networkmanager-openvpn
+    nikto
+    nmap
+    ntfs-3g
+    ollama-cuda
+    openrazer-daemon
+    openrazer-driver-dkms
+    openssh
+    p7zip
+    packagekit-qt6
+    pacman-contrib
+    php
+    pkgfile
+    plymouth
+    plymouth-kcm
+    reflector
+    rsync
+    starship
+    steam
+    system-config-printer
+    system76-firmware
+    system76-scheduler
+    systray-x-kde
+    thunderbird
+    unarj
+    unrar
+    unzip
+    virt-manager
+    vlc
+    vulkan-intel
+    zip
 )
+
+AURPKGS=(
+    1password
+    1password-cli
+    blesh-git
+    docker-rootless-extras
+    docker-tray
+    firmware-manager
+    github-desktop
+    google-chrome
+    input-remapper-bin
+    libopenrazer
+    razergenie
+    system76-dkms
+    system76-driver
+    system76-power
+    ttf-ms-fonts
+    vim-plug
+    visual-studio-code-bin
+)
+
+if command -v pacman > /dev/null 2>&1; then
+    if [ "$DRY_RUN" = true ]; then
+        echo "[DRY-RUN] pacman -S --noconfirm --needed ${PKGS[*]}"
+    else
+        sudo pacman -S --noconfirm --needed "${PKGS[@]}"
+        ALL_INSTALLED=true
+    fi
+else
+    echo "pacman not available; please make sure you are running Arch Linux or an Arch-based distro."
+fi
 
 if command -v yay > /dev/null 2>&1; then
     if [ "$DRY_RUN" = true ]; then
-        echo "[DRY-RUN] yay -S --noconfirm --needed ${PKGS[*]}"
+        echo "[DRY-RUN] yay -S --noconfirm --needed ${AURPKGS[*]}"
     else
-        yay -S --noconfirm --needed "${PKGS[@]}"
+        yay -S --noconfirm --needed "${AURPKGS[@]}"
+        ALL_INSTALLED=true
     fi
 else
-    echo "yay not available; installing available packages via pacman (non-AUR)"
-    # Attempt installing via pacman only; skip packages not in official repos
-    if [ "$DRY_RUN" = true ]; then
-        echo "[DRY-RUN] sudo pacman -S --noconfirm --needed ${PKGS[*]}"
-    else
-        run_sudo pacman -S --noconfirm --needed "${PKGS[@]}" || echo "Some packages may be AUR-only and were skipped"
-    fi
+    echo "yay not available, please install yay to proceed with AUR packages."
 fi
 
-## Enable and start services
-echo "Enabling and starting services..."
-run_sudo systemctl enable firewalld cups docker bluetooth com.system76.PowerDaemon com.system76.Scheduler system76-firmware-daemon system76 nvidia-powerd pkgfile-update.timer reflector.service reflector.timer --now
+## Add user to necessary groups
+if [ "$ALL_INSTALLED" = true ]; then
+    echo "**** Adding user '$USER' to necessary groups..."
+    GROUPS=(
+        "docker"
+        "plugdev"
+    )
+
+    for group in "${GROUPS[@]}"; do
+        echo " - Adding user '$USER' to group '$group'"
+        run_sudo usermod -aG "$group" "$USER"
+    done
+else
+    echo "Not all packages were installed; skipping group membership changes."
+fi
+
+## Enable services
+if [ "$ALL_INSTALLED" = true ]; then
+    echo "**** Enabling services..."
+    SERVICES=(
+        "firewalld.service"
+        "cups.service"
+        "docker.service"
+        "bluetooth.service"
+        "com.system76.PowerDaemon.service"
+        "com.system76.Scheduler.service"
+        "system76-firmware-daemon.service"
+        "system76.service"
+        "nvidia-powerd.service"
+        "openrazer-daemon.service"
+        "ollama.service"
+        "pkgfile-update.timer.service"
+        "reflector.service"
+        "reflector.timer"
+    )
+
+    for svc in "${SERVICES[@]}"; do
+        echo " - Enabling $svc"
+        run_sudo systemctl enable "$svc"
+    done
+else
+    echo "Not all packages were installed; skipping service enable."
+fi
 
 ## Add local systems to host file (idempotent)
-echo "Adding local systems to /etc/hosts..."
+echo "**** Adding local systems to /etc/hosts..."
 add_host_if_missing() {
     local ip="$1" name="$2"
     if ! grep -qxF "$ip $name" /etc/hosts; then
@@ -133,7 +252,7 @@ add_host_if_missing 192.168.0.134 sappnas
 ## Back up each entry first and add missing tokens individually.
 filesChanged=false
 if [ -d /boot/loader/entries ]; then
-    echo "Configuring systemd-boot entries to include: splash quiet"
+    echo "**** Configuring systemd-boot entries to include: splash quiet"
     tokens=(splash quiet)
     for f in /boot/loader/entries/*.conf; do
         [ -e "$f" ] || continue
@@ -172,7 +291,7 @@ else
 fi
 
 if [ "$filesChanged" = true ]; then
-    echo "Running mkinitcpio for updated initramfs images"
+    echo "**** Running mkinitcpio for updated initramfs images"
     run_sudo mkinitcpio -P
 fi
 
@@ -186,7 +305,7 @@ if [ "${USER:-}" = "tpsapp" ]; then
             echo "[DRY-RUN] git clone https://github.com/tpsapp/LinuxProfileFiles /tmp/LinuxProfileFiles"
         else
             git clone https://github.com/tpsapp/LinuxProfileFiles /tmp/LinuxProfileFiles
-            echo "Cloned to /tmp/LinuxProfileFiles. I will not run the repository's install.sh automatically. Inspect and run it manually if desired."
+            echo "Cloned to /tmp/LinuxProfileFiles. I will not run the repository's restore_files.sh automatically. Inspect and run it manually if desired."
         fi
     fi
 fi

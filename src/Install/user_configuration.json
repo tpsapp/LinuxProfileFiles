@@ -1,81 +1,17 @@
 {
-    "app_config": null,
+    "app_config": {
+        "audio_config": {
+            "audio": "pipewire"
+        },
+        "bluetooth_config": {
+            "enabled": true
+        }
+    },
     "archinstall-language": "English",
-    "auth_config": {},
+    "auth_config": null,
     "bootloader": "Systemd-boot",
     "custom_commands": [],
-    "disk_config": {
-        "btrfs_options": {
-            "snapshot_config": null
-        },
-        "config_type": "default_layout",
-        "device_modifications": [
-            {
-                "device": "/dev/nvme0n1",
-                "partitions": [
-                    {
-                        "btrfs": [],
-                        "dev_path": null,
-                        "flags": [
-                            "boot",
-                            "esp"
-                        ],
-                        "fs_type": "fat32",
-                        "mount_options": [],
-                        "mountpoint": "/boot",
-                        "obj_id": "46f74ab1-26a3-4c2c-b31b-2823463928fc",
-                        "size": {
-                            "sector_size": {
-                                "unit": "B",
-                                "value": 512
-                            },
-                            "unit": "GiB",
-                            "value": 1
-                        },
-                        "start": {
-                            "sector_size": {
-                                "unit": "B",
-                                "value": 512
-                            },
-                            "unit": "MiB",
-                            "value": 1
-                        },
-                        "status": "create",
-                        "type": "primary"
-                    },
-                    {
-                        "btrfs": [],
-                        "dev_path": null,
-                        "flags": [],
-                        "fs_type": "ext4",
-                        "mount_options": [],
-                        "mountpoint": "/",
-                        "obj_id": "ef82c8e9-d898-493d-bdf5-69744c015bc3",
-                        "size": {
-                            "sector_size": {
-                                "unit": "B",
-                                "value": 512
-                            },
-                            "unit": "B",
-                            "value": 20398997504
-                        },
-                        "start": {
-                            "sector_size": {
-                                "unit": "B",
-                                "value": 512
-                            },
-                            "unit": "B",
-                            "value": 1074790400
-                        },
-                        "status": "create",
-                        "type": "primary"
-                    }
-                ],
-                "wipe": true
-            }
-        ]
-    },
-    "hostname": "hostname",
+    "hostname": "archlinux",
     "kernels": [
         "linux"
     ],
@@ -139,6 +75,8 @@
                 "https://iad.mirrors.misaka.one/archlinux/$repo/os/$arch",
                 "http://mirror.pit.teraswitch.com/archlinux/$repo/os/$arch",
                 "https://mirror.pit.teraswitch.com/archlinux/$repo/os/$arch",
+                "http://mirror.arizona.edu/archlinux/$repo/os/$arch",
+                "https://mirror.arizona.edu/archlinux/$repo/os/$arch",
                 "http://archmirror1.octyl.net/$repo/os/$arch",
                 "https://archmirror1.octyl.net/$repo/os/$arch",
                 "http://plug-mirror.rcac.purdue.edu/archlinux/$repo/os/$arch",
@@ -184,7 +122,6 @@
                 "https://mirrors.vectair.net/archlinux/$repo/os/$arch",
                 "https://arch.mirror.k0.ae/$repo/os/$arch",
                 "https://mirror.zackmyers.io/archlinux/$repo/os/$arch",
-                "http://wcbmedia.io:8000/$repo/os/$arch",
                 "https://m.lqy.me/arch/$repo/os/$arch",
                 "http://mirror.adectra.com/archlinux/$repo/os/$arch",
                 "https://mirror.adectra.com/archlinux/$repo/os/$arch",
@@ -227,75 +164,10 @@
         "type": "nm"
     },
     "ntp": true,
-    "packages": [
-        "adobe-source-code-pro-fonts",
-        "atuin",
-        "bash-completion",
-        "cups",
-        "cups-filters",
-        "cups-pdf",
-        "docker",
-        "docker-compose",
-        "dosfstools",
-        "exfatprogs",
-        "firefox",
-        "firewalld",
-        "gameconqueror",
-        "gamemode",
-        "gimp",
-        "git",
-        "github-cli",
-        "go",
-        "hexchat",
-        "hplip",
-        "inetutils",
-        "intel-media-driver",
-        "intel-ucode",
-        "lesspipe",
-        "lib32-gamemode",
-        "libreoffice-fresh",
-        "libva-intel-driver",
-        "libva-nvidia-driver",
-        "nano",
-        "nerd-fonts",
-        "network-manager-applet",
-        "networkmanager-openvpn",
-        "nikto",
-        "nmap",
-        "ntfs-3g",
-        "nvidia-dkms",
-        "ollama-cuda",
-        "openrazer-daemon",
-        "openrazer-driver-dkms",
-        "openssh",
-        "p7zip",
-        "packagekit-qt6",
-        "pacman-contrib",
-        "php",
-        "pkgfile",
-        "plymouth",
-        "plymouth-kcm",
-        "reflector",
-        "rsync",
-        "starship",
-        "steam",
-        "system-config-printer",
-        "system76-firmware",
-        "system76-scheduler",
-        "systray-x-kde",
-        "thunderbird",
-        "unarj",
-        "unrar",
-        "unzip",
-        "vim",
-        "virt-manager",
-        "vlc",
-        "vulkan-intel",
-        "zip"
-    ],
+    "packages": [],
     "parallel_downloads": 0,
     "profile_config": {
-        "gfx_driver": "Intel (open-source)",
+        "gfx_driver": "Nvidia (open kernel module for newer GPUs, Turing+)",
         "greeter": "sddm",
         "profile": {
             "custom_settings": {
@@ -311,5 +183,5 @@
     "services": [],
     "swap": true,
     "timezone": "America/Phoenix",
-    "version": "3.0.11"
+    "version": "3.0.9"
 }

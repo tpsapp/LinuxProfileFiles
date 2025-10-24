@@ -214,6 +214,11 @@ for pattern in "$SRC_ROOT"/.ssh/*.pub "$SRC_ROOT"/.ssh/config "$SRC_ROOT"/.ssh/k
 done
 shopt -u nullglob
 
+## Creating my preferred directory structures
+mkdir -p "$HOME/Documents/Projects/github"
+mkdir -p "$HOME/Documents/Projects/vscode"
+mkdir -p "$HOME/SAPPNAS"
+
 ## Restore system pacman.conf from backup if present
 PACMAN_SRC="$SRC_ROOT/etc/pacman.conf"
 if [ -f "$PACMAN_SRC" ]; then
