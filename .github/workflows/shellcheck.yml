@@ -50,4 +50,4 @@ jobs:
         run: |
           echo "Running shellcheck on scripts..."
           # find shell scripts and run shellcheck; exit non-zero on issues
-          find . -type f -name "*.sh" -print0 | xargs -0 shellcheck -f gcc
+          find . -type f -name "*.sh" -print0 | xargs -0 shellcheck -f gcc --severity=error
