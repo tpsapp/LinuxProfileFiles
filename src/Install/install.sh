@@ -89,6 +89,7 @@ PKGS=(
     docker-compose
     dosfstools
     exfatprogs
+    ffmpegthumbs
     firefox
     firewalld
     gameconqueror
@@ -97,11 +98,18 @@ PKGS=(
     git
     github-cli
     go
+    gwenview
     hexchat
     hplip
     hunspell-en_us
     inetutils
     intel-media-driver
+    kde-graphics-meta
+    kde-network-meta
+    kde-sdk-meta
+    kde-system-meta
+    kde-utilities-meta
+    kimageformts
     lesspipe
     lib32-gamemode
     lib32-vulkan-intel
@@ -113,6 +121,7 @@ PKGS=(
     nikto
     nmap
     ntfs-3g
+    okteta
     ollama-cuda
     openrazer-daemon
     openrazer-driver-dkms
@@ -153,11 +162,14 @@ AURPKGS=(
     google-chrome
     input-remapper-bin
     libopenrazer
+    ocs-url
     razergenie
     system76-dkms
     system76-driver
     system76-power
     ttf-ms-fonts
+    ttf-noto-sans-mono-vf
+    ttf-noto-sans-vf
     vim-plug
     visual-studio-code-bin
 )
