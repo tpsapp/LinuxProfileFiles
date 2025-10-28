@@ -1,0 +1,6 @@
+[Desktop Entry]
+Exec=/home/tpsapp/.local/bin/login.sh
+Icon=application-x-shellscript
+Name=login.sh
+Type=Application
+X-KDE-AutostartScript=true
