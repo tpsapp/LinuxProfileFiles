@@ -100,7 +100,6 @@ PKGS=(
     github-cli
     go
     gwenview
-    hexchat
     hplip
     hunspell-en_us
     inetutils
@@ -110,7 +109,7 @@ PKGS=(
     kde-sdk-meta
     kde-system-meta
     kde-utilities-meta
-    kimageformts
+    kimageformats
     lesspipe
     lib32-gamemode
     lib32-vulkan-intel
@@ -138,6 +137,7 @@ PKGS=(
     plymouth-kcm
     reflector
     rsync
+    shellcheck
     starship
     steam
     system-config-printer
@@ -163,6 +163,7 @@ AURPKGS=(
     firmware-manager
     github-desktop
     google-chrome
+    hexchat
     input-remapper-bin
     libopenrazer
     ocs-url
@@ -228,9 +229,8 @@ if [ "$ALL_INSTALLED" = true ]; then
         "system76-firmware-daemon.service"
         "system76.service"
         "nvidia-powerd.service"
-        "openrazer-daemon.service"
         "ollama.service"
-        "pkgfile-update.timer.service"
+        "pkgfile-update.timer"
         "reflector.service"
         "reflector.timer"
     )
@@ -239,6 +239,8 @@ if [ "$ALL_INSTALLED" = true ]; then
         echo " - Enabling $svc"
         run_sudo systemctl enable "$svc"
     done
+
+    systemctl --user enable openrazer-daemon.service
 else
     echo "Not all packages were installed; skipping service enable."
 fi
@@ -290,15 +292,25 @@ if [ -d /boot/loader/entries ]; then
         if [ "$DRY_RUN" = true ]; then
             echo "[DRY-RUN] would update $f to add missing tokens: ${tokens[*]}"
         else
-            sudo awk -v add="${tokens[*]}" '
+            # Avoid truncating the original entry by writing modified content to a
+            # root-owned temporary file, then atomically moving it into place. Use
+            # `sudo awk | sudo tee` so the temp file is created with root ownership
+            # (this also addresses shellcheck SC2024 about redirects under sudo).
+            tmpfile="/tmp/$(basename "$f").tmp.$ts"
+            if sudo awk -v add="${tokens[*]}" '
                 BEGIN { split(add, a, " ") }
                 /^options/ {
                     for (i in a) if ($0 !~ "\\<" a[i] "\\>") $0 = $0 " " a[i]
                 }
                 { print }
-            ' "$f" | sudo tee "$f" > /dev/null
-            echo " - updated $f (backup: $f.bak.$ts)"
-            filesChanged=true
+            ' "$f" | sudo tee "$tmpfile" > /dev/null; then
+                run_sudo mv "$tmpfile" "$f"
+                echo " - updated $f (backup: $f.bak.$ts)"
+                filesChanged=true
+            else
+                echo " - ERROR: failed to update $f"
+                [ -e "$tmpfile" ] && sudo rm -f "$tmpfile"
+            fi
         fi
     done
 else
