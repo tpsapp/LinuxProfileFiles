@@ -90,6 +90,7 @@ PKGS=(
     dosfstools
     exfatprogs
     ffmpegthumbs
+    filezilla
     firefox
     firewalld
     gameconqueror
@@ -120,6 +121,7 @@ PKGS=(
     networkmanager-openvpn
     nikto
     nmap
+    noto-fonts-cjk
     ntfs-3g
     okteta
     ollama-cuda

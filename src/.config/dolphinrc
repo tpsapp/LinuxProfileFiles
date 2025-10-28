@@ -6,6 +6,11 @@ UseShortRelativeDates=false
 [ContextMenu]
 ShowCopyMoveMenu=true
 
+[ExtractDialog]
+2 screens: Height=480
+2 screens: Width=972
+DirHistory[$e]=$HOME/SAPPNAS/Fonts/
+
 [General]
 EditableUrl=true
 FilterBar=true
@@ -29,14 +34,14 @@ Places Icons Static Size=22
 MenuBar=Disabled
 
 [PreviewSettings]
-Plugins=appimagethumbnail,audiothumbnail,blenderthumbnail,comicbookthumbnail,cursorthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,directorythumbnail,fontthumbnail,pothumbnail,imagethumbnail,jpegthumbnail,kraorathumbnail,windowsexethumbnail,windowsimagethumbnail,mobithumbnail,opendocumentthumbnail,gsthumbnail,quithumbnail,rawthumbnail,svgthumbnail,textthumbnail
-
-[VersionControl]
-enabledPlugins=Git
+Plugins=appimagethumbnail,audiothumbnail,comicbookthumbnail,cursorthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,directorythumbnail,fontthumbnail,imagethumbnail,jpegthumbnail,kraorathumbnail,windowsexethumbnail,windowsimagethumbnail,opendocumentthumbnail,svgthumbnail,textthumbnail
 
 [ViewPropertiesDialog]
-2 screens: Height=587
-2 screens: Width=407
+2 screens: Height=583
+2 screens: Width=413
+
+[kuick-copy]
+Paths[$e]=$HOME/
 
 [kuick-move]
 Paths[$e]=$HOME/SAPPNAS/Personal
