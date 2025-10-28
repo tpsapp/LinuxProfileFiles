@@ -123,6 +123,7 @@ PKGS=(
     nmap
     noto-fonts-cjk
     ntfs-3g
+    nvidia-settings
     okteta
     ollama-cuda
     openrazer-daemon
