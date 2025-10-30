@@ -1,0 +1,2 @@
+[General]
+commands="@ByteArray({\"2d96a644_aad4_4e42_a862_7c3fe5294674\":{\"command\":\"loginctl lock-session\",\"name\":\"Lock Screen\"},\"2e00d76c_b2b1_480c_aabb_4fdd7d003f82\":{\"command\":\"loginctl unlock-session\",\"name\":\"Unlock Screen\"},\"c231ca30_ac2d_49d5_a235_1804d7ef2862\":{\"command\":\"poweroff\",\"name\":\"Poweroff\"},\"d19a61aa_7684_4d8f_88a0_72a18dc6ca53\":{\"command\":\"reboot\",\"name\":\"Reboot\"}})"

@@ -34,6 +34,7 @@ if [ -f /usr/bin/yay ]; then
     alias update='yay --needed -Syu'
     alias ncupd='yay --needed --noconfirm -Syu'
     alias cleanup='yay -Rns $(yay -Qtdq)'
+    alias fullclean='cleanup && yay -Scc'
 elif [ -f /usr/bin/pacman ]; then
     alias inst='sudo pacman --needed -S'
     alias uinst='sudo pacman -R'
@@ -41,6 +42,7 @@ elif [ -f /usr/bin/pacman ]; then
     alias update='sudo pacman --needed -Syu'
     alias ncupd='sudo pacman --needed --noconfirm -Syu'
     alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'
+    alias fullclean='cleanup && sudo pacman -Scc'
 elif [ -f /usr/bin/nala ]; then
     alias inst='sudo nala install'
     alias uinst='sudo nala remove'

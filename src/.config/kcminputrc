@@ -1,0 +1,8 @@
+[Keyboard]
+NumLock=0
+
+[Libinput][10248][257][FTCS1000:00 2808:0101 Touchpad]
+DisableEventsOnExternalMouse=true
+
+[Mouse]
+cursorTheme=material_light_cursors

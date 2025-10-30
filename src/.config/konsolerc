@@ -1,0 +1,14 @@
+[Desktop Entry]
+DefaultProfile=Main.profile
+
+[General]
+ConfigVersion=1
+
+[KonsoleWindow]
+ShowWindowTitleOnTitleBar=true
+
+[TabBar]
+NewTabButton=true
+
+[UiSettings]
+ColorScheme=

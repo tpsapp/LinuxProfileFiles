@@ -136,6 +136,9 @@ declare -a FILES=(
   ".config/powermanagementprofilesrc"
   ".config/bluedevilglobalrc"
   ".config/kdeconnect"
+
+	# VLC media player config
+	".config/vlc/vlcrc"
 )
 
 # Special files copied by backup_files.sh

@@ -6,10 +6,13 @@ UseShortRelativeDates=false
 [ContextMenu]
 ShowCopyMoveMenu=true
 
+[DetailsMode]
+PreviewSize=32
+
 [ExtractDialog]
 2 screens: Height=480
-2 screens: Width=972
-DirHistory[$e]=$HOME/SAPPNAS/Fonts/
+2 screens: Width=895
+DirHistory[$e]=$HOME/Desktop/,$HOME/SAPPNAS/Fonts/
 
 [General]
 EditableUrl=true

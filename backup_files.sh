@@ -136,6 +136,9 @@ FILES=(
 	"$HOME/.config/powermanagementprofilesrc"
 	"$HOME/.config/bluedevilglobalrc"
 	"$HOME/.config/kdeconnect"
+
+	# VLC media player config
+	"$HOME/.config/vlc/vlcrc"
 )
 
 # Directories to copy (rsync)
