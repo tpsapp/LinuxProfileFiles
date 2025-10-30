@@ -102,6 +102,40 @@ declare -a FILES=(
   ".bashrc" ".bash_aliases" ".bash_functions" ".bash_logout"
   ".bash_profile" ".profile" ".dir_colors" ".gitconfig" ".nanorc"
   ".vimrc" ".Xresources" "Pictures/avatar.jpg"
+  # KDE/Plasma single config files (from plasma-settings.md)
+  ".config/plasma-org.kde.plasma.desktop-appletsrc"
+  ".config/kdeglobals"
+  ".config/kwinrc"
+  ".config/kscreenlockerrc"
+  ".config/ksplashrc"
+  ".config/plasmarc"
+  ".config/Trolltech.conf"
+  ".config/kcminputrc"
+  ".config/kcmfonts"
+  ".config/klaunchrc"
+  ".config/kactivitymanagerdrc"
+  ".config/kactivitymanagerd-switcher"
+  ".config/kactivitymanagerd-statsrc"
+  ".config/kactivitymanagerd-pluginsrc"
+  ".config/kglobalshortcutsrc"
+  ".config/kwinrulesrc"
+  ".config/khotkeysrc"
+  ".config/kded5rc"
+  ".config/ksmserverrc"
+  ".config/krunnerrc"
+  ".config/baloofilerc"
+  ".config/kuriikwsfiltersrc"
+  ".config/plasmanotifyrc"
+  ".config/plasma-localerc"
+  ".config/ktimezonedrc"
+  ".config/kaccessrc"
+  ".config/mimeapps.list"
+  ".config/user-dirs.dirs"
+  ".local/share/user-places.xbel"
+  ".config/kgammarc"
+  ".config/powermanagementprofilesrc"
+  ".config/bluedevilglobalrc"
+  ".config/kdeconnect"
 )
 
 # Special files copied by backup_files.sh
@@ -110,6 +144,11 @@ declare -a SPECIAL_FILES=(
   ".config/atuin/config.toml" ".config/atuin/themes/nord.toml"
   ".config/openrazer/razer.conf" ".config/openrazer/persistence.conf"
   ".config/razergenie/RazerGenie.conf" ".config/yay/config.json"
+
+	# KDE app configs
+	".config/konsolerc" ".config/spectaclerc" ".config/systemsettingsrc"
+	".config/kate-externaltoolspluginrc" ".config/kcalcrc" ".config/partitionmanagerrc"
+	".config/krusaderrc" ".config/systemmonitorrc"
 )
 
 # Directories synced by backup_files.sh (use rsync for directories)
@@ -117,6 +156,15 @@ declare -a DIRS=(
   ".local/bin"
   "Pictures/Wallpapers"
   ".config/autostart"
+  # KDE/Plasma directories
+  ".local/share/plasma-systemmonitor"
+  ".local/share/kservices5/searchproviders"
+  ".config/gtk-4.0"
+  ".config/gtk-3.0"
+  ".config/kdeconnect"
+
+  # System network connections
+  "/etc/NetworkManager/system-connections"
 )
 
 # If not a dry run, show a summary of actions and ask for one confirmation to proceed

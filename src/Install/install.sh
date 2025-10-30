@@ -80,16 +80,20 @@ echo "**** Installing base applications..."
 ALL_INSTALLED=false
 PKGS=(
     adobe-source-code-pro-fonts
+    ark
     atuin
     bash-completion
+    colord-kde
     cups
     cups-filters
     cups-pdf
     docker
     docker-compose
+    dolphin-plugins
     dosfstools
     exfatprogs
     ffmpegthumbs
+    filelight
     filezilla
     firefox
     firewalld
@@ -100,23 +104,59 @@ PKGS=(
     github-cli
     go
     gwenview
+    gwenview
     hplip
     hunspell-en_us
     inetutils
     intel-media-driver
-    kde-graphics-meta
-    kde-network-meta
+    isoimagewriter
+    kalk
+    kamera
+    kapptemplate
+    kate
+    kbackup
+    kcachegrind
+    kcharselect
+    kclock
+    kcolorchooser
+    kde-dev-scripts
+    kde-dev-utils
     kde-sdk-meta
-    kde-system-meta
-    kde-utilities-meta
+    kdebugsettings
+    kdeconnect
+    kdegraphics-thumbnailers
+    kdenetwork-filesharing
+    kdesdk-kio
+    kdesdk-thumbnailers
+    kdf
+    kdialog
+    keditbookmarks
+    keysmith
+    kfind
+    kgpg
     kimageformats
+    kio-extras
+    kio-gdrive
+    kio-zeroconf
+    kirigami-gallery
+    koko
+    kompare
+    konsole
+    krdc
+    krecorder
+    krfb
+    ktimer
+    ktorrent
+    kwalletmanager
+    kweather
     lesspipe
     lib32-gamemode
     lib32-vulkan-intel
     libreoffice-fresh
     libva-intel-driver
+    lokalize
+    markdownpart
     ncdu
-    nerd-fonts
     networkmanager-openvpn
     nikto
     nmap
@@ -124,6 +164,7 @@ PKGS=(
     ntfs-3g
     nvidia-settings
     okteta
+    okular
     ollama-cuda
     openrazer-daemon
     openrazer-driver-dkms
@@ -135,16 +176,26 @@ PKGS=(
     pkgfile
     plymouth
     plymouth-kcm
+    poxml
+    qrca
     reflector
     rsync
     shellcheck
+    signon-kwallet-extension
+    skanlite
+    skanpage
+    sshfs
     starship
     steam
+    svgpart
+    sweeper
     system-config-printer
     system76-firmware
     system76-scheduler
     systray-x-kde
     thunderbird
+    ttf-3270-nerd
+    ttf-firacode-nerd
     unarj
     unrar
     unzip
@@ -171,9 +222,6 @@ AURPKGS=(
     system76-dkms
     system76-driver
     system76-power
-    ttf-ms-fonts
-    ttf-noto-sans-mono-vf
-    ttf-noto-sans-vf
     vim-plug
     visual-studio-code-bin
 )

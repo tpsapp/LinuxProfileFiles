@@ -41,7 +41,7 @@ copy_file() {
        local dst
        if [[ "$src" == "$HOME"* ]]; then
 	       # Home files: preserve relative path under src
-	       dst="$DEST_ROOT${src#$HOME}"
+	       dst="$DEST_ROOT${src#"$HOME"}"
        elif [[ "$src" == "/etc/pacman.conf" ]]; then
 	       # System file: put in src/etc/
 	       dst="$DEST_ROOT/etc/pacman.conf"
@@ -71,7 +71,7 @@ copy_tree() {
        local dst_dir
        if [[ "$src" == "$HOME"* ]]; then
 	       # Home directories: preserve path relative to $HOME
-	       dst_dir="$DEST_ROOT${src#$HOME}"
+	       dst_dir="$DEST_ROOT${src#"$HOME"}"
        else
 	       # Other absolute paths: preserve under src
 	       dst_dir="$DEST_ROOT/${src#/}"
@@ -101,6 +101,41 @@ FILES=(
 	"$HOME/.Xresources"
 	"$HOME/Pictures/avatar.jpg"
 	"/etc/pacman.conf"   # will be placed in src/etc/
+
+	# KDE/Plasma single config files
+	"$HOME/.config/plasma-org.kde.plasma.desktop-appletsrc"
+	"$HOME/.config/kdeglobals"
+	"$HOME/.config/kwinrc"
+	"$HOME/.config/kscreenlockerrc"
+	"$HOME/.config/ksplashrc"
+	"$HOME/.config/plasmarc"
+	"$HOME/.config/Trolltech.conf"
+	"$HOME/.config/kcminputrc"
+	"$HOME/.config/kcmfonts"
+	"$HOME/.config/klaunchrc"
+	"$HOME/.config/kactivitymanagerdrc"
+	"$HOME/.config/kactivitymanagerd-switcher"
+	"$HOME/.config/kactivitymanagerd-statsrc"
+	"$HOME/.config/kactivitymanagerd-pluginsrc"
+	"$HOME/.config/kglobalshortcutsrc"
+	"$HOME/.config/kwinrulesrc"
+	"$HOME/.config/khotkeysrc"
+	"$HOME/.config/kded5rc"
+	"$HOME/.config/ksmserverrc"
+	"$HOME/.config/krunnerrc"
+	"$HOME/.config/baloofilerc"
+	"$HOME/.config/kuriikwsfiltersrc"
+	"$HOME/.config/plasmanotifyrc"
+	"$HOME/.config/plasma-localerc"
+	"$HOME/.config/ktimezonedrc"
+	"$HOME/.config/kaccessrc"
+	"$HOME/.config/mimeapps.list"
+	"$HOME/.config/user-dirs.dirs"
+	"$HOME/.local/share/user-places.xbel"
+	"$HOME/.config/kgammarc"
+	"$HOME/.config/powermanagementprofilesrc"
+	"$HOME/.config/bluedevilglobalrc"
+	"$HOME/.config/kdeconnect"
 )
 
 # Directories to copy (rsync)
@@ -108,12 +143,24 @@ DIRS=(
 	"$HOME/.local/bin"
 	"$HOME/Pictures/Wallpapers"
 	"$HOME/.config/autostart"
+
+	# KDE/Plasma directories
+	"$HOME/.local/share/plasma-systemmonitor"
+	"$HOME/.local/share/kservices5/searchproviders"
+	"$HOME/.config/gtk-4.0"
+	"$HOME/.config/gtk-3.0"
+	"$HOME/.config/kdeconnect"
+	"$HOME/.config/kwin" # in case custom scripts/themes stored under kwin
+
+	# System network connections (requires root to restore)
+	"/etc/NetworkManager/system-connections"
 )
 
 # Special and ssh-safe patterns
 SPECIAL_FILES=(
 	"$HOME/.config/dolphinrc"
 	"$HOME/.config/katerc"
+	"$HOME/.config/katevirc"
 	"$HOME/.config/starship.toml"
 	"$HOME/.config/atuin/config.toml"
 	"$HOME/.config/atuin/themes/nord.toml"
@@ -121,6 +168,16 @@ SPECIAL_FILES=(
 	"$HOME/.config/openrazer/persistence.conf"
 	"$HOME/.config/razergenie/RazerGenie.conf"
 	"$HOME/.config/yay/config.json"
+
+	# KDE app configs
+	"$HOME/.config/konsolerc"
+	"$HOME/.config/spectaclerc"
+	"$HOME/.config/systemsettingsrc"
+	"$HOME/.config/kate-externaltoolspluginrc"
+	"$HOME/.config/kcalcrc"
+	"$HOME/.config/partitionmanagerrc"
+	"$HOME/.config/krusaderrc"
+	"$HOME/.config/systemmonitorrc"
 )
 
 SSH_INCLUDES=(
